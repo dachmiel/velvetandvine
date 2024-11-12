@@ -1,2 +1,2 @@
-# OrangeSteppers
+# Velvet and Vine
 Clothing website for CSE389
