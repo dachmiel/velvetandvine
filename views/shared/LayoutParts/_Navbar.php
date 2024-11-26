@@ -63,10 +63,10 @@
 
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="btn btn-outline-light me-2" href="/register.php">Register</a>
+            <a class="btn btn-outline-light me-2" href="/velvetandvine/account/register">Register</a>
           </li>
           <li class="nav-item">
-            <a class="btn btn-light" href="/login.php">Login</a>
+            <a class="btn btn-light" href="/velvetandvine/account/login">Login</a>
           </li>
         </ul>
 
