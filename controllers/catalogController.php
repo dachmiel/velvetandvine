@@ -1,18 +1,21 @@
 <?php
 
-class CatalogController {
-    public function index($id = null) {
+class CatalogController
+{
+    public function index($id = null)
+    {
         $pageContent = 'Views/Catalog/index.php'; // Set the page-specific content
         include "Views/Shared/_Layout.php";
     }
-    public function product(){
+    public function product()
+    {
         $pageContent = 'Views/Catalog/product.php';
         include "Views/Shared/_Layout.php";
     }
 
-    public function tops($id = null) {
+    public function tops($id = null)
+    {
         $pageContent = 'Views/Catalog/tops.php'; // Set the page-specific content
         include "Views/Shared/_Layout.php";
     }
 }
-?>
