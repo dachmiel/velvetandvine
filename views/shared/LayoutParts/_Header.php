@@ -4,7 +4,7 @@
       <div class="col">
 
         <a class="navbar-brand" href="/velvetandvine/home" style="text-align: center; display: block;">
-          <img src="images/logo.png" title="Velvet&Vine" alt="Velvet&VineLogo" style="max-width: 250px; height: auto; display: block; margin: 0 auto;" />
+          <img src="/velvetandvine/images/logo.png" title="Velvet&Vine" alt="Velvet&VineLogo" style="max-width: 250px; height: auto; display: block; margin: 0 auto;" />
         </a>
 
 
