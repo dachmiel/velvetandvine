@@ -52,3 +52,37 @@ footer {
 .nav-link {
     color: white;
 }
+
+.submit-btn {
+    background-color: white;
+    border: 1px solid #333;
+    /* Black border */
+    color: #333;
+    /* Black text */
+}
+
+.submit-btn:hover {
+    background-color: #f8f9fa;
+    /* Light grey background on hover */
+    border-color: #333;
+    /* Ensure border stays black on hover */
+    color: #333;
+    /* Ensure text stays black on hover */
+}
+
+.cancel-btn {
+    background-color: #333;
+    border: 1px solid white;
+    /* Black border */
+    color: white;
+    /* Black text */
+}
+
+.cancel-btn:hover {
+    background-color: white;
+    /* Light grey background on hover */
+    border-color: #333;
+    /* Ensure border stays black on hover */
+    color: #333;
+    /* Ensure text stays black on hover */
+}
