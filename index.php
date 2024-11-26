@@ -1,4 +1,5 @@
 <?php
+
 // get the controller, action, and id from the query string
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'home'; // default controller is 'home'
 $action = isset($_GET['action']) ? $_GET['action'] : 'index'; // default action is 'index'
