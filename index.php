@@ -25,5 +25,3 @@ if (class_exists($controllerClass)) {
 } else {
     die("Controller class {$controllerClass} not found.");
 }
-
-?>
