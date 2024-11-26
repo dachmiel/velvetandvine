@@ -5,35 +5,35 @@
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/index.php">New!</a>
+          <a class="nav-link" href="/velvetandvine/catalog/new">New!</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/index.php">Tops</a>
+          <a class="nav-link" href="/velvetandvine/catalog/tops">Tops</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/index.php">Dresses</a>
+          <a class="nav-link" href="/velvetandvine/catalog/dresses">Dresses</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/index.php">Bottoms</a>
+          <a class="nav-link" href="/velvetandvine/catalog/bottoms">Bottoms</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/index.php">Denim</a>
+          <a class="nav-link" href="/velvetandvine/catalog/denim">Denim</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/index.php">Accessories</a>
+          <a class="nav-link" href="/velvetandvine/catalog/accessories">Accessories</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/index.php">Jackets</a>
+          <a class="nav-link" href="/velvetandvine/catalog/jackets">Jackets</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/index.php">Sale</a>
+          <a class="nav-link" href="/velvetandvine/catalog/sale">Sale</a>
         </li>
       </ul>
 
