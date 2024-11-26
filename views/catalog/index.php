@@ -33,7 +33,7 @@
                         <h2><?php echo $product['name']; ?></h2>
                         <p><?php echo $product['description']; ?></p>
                         <p><strong><?php echo $product['price']; ?></strong></p>
-                        <a href="product.php?product_name=<?php echo urlencode($product['name']); ?>" class="btn btn-primary">View Details</a>
+                        <a href="product?product_name=<?php echo urlencode($product['name']); ?>" class="btn btn-primary">View Details</a>
                         </div>
                 </div>
                 <?php if (($index + 1) % 3 == 0): ?>
