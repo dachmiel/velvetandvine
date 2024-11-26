@@ -1,0 +1,10 @@
+#  To access a file located in a specific directory, you would use the URL path. For example, 'localhost/velvetandvine tops' would be a request for a file or directory names tops within the velvetandvine directory. If the server can't find this file or folder named tops, it will return a 404 error. Query strings are used to pass parameters such as controller, action, id (i.e. 'localhost/velvetandvine/?controller=catalog&action=show&id=123'). The role of .htaccess is to rewrite the URL for the on the server, rewriting it into the query string (i.e. 'index.php?controller=tops&action=index') which the server processes. This makes it possible to hide the query string from the URL and makes it cleaner. This way, the user can route to a controller/action/index page without explicitly passing a query string.
+
+RewriteEngine On
+RewriteBase /velvetandvine/
+
+# Route all requests to index.php
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)(/([0-9]+))?$ index.php?controller=$1&action=$2&id=$4 [QSA,L]
+
+# Catch-all rule to handle default action (index)
+RewriteRule ^([a-zA-Z0-9_-]+)?$ index.php?controller=$1&action=index [QSA,L]
