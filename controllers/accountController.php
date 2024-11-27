@@ -12,6 +12,11 @@ class AccountController extends BaseController
 
     public function register()
     {
+
+        if (isset($_SESSION["email"])) {
+            header("Location: /velvetandvine");
+            exit;
+        }
         $user = new ApplicationUser();
         $RegisterViewModel = new RegisterViewModel();
 
@@ -59,6 +64,7 @@ class AccountController extends BaseController
                     $statement->bindParam(':user_type', $user_type, PDO::PARAM_STR);
 
                     if ($statement->execute()) {
+                        $_SESSION["email"] = $RegisterViewModel->email;
                         // Redirect to login after successful registration
                         header("Location: /velvetandvine/account/login");
                         exit;
