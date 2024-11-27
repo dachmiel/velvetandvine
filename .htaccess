@@ -11,3 +11,5 @@ RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)(/([0-9]+))?$ index.php?controller
 
 # Catch-all rule to handle default action (index), only if no action is provided
 RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?controller=$1&action=index [QSA,L]
+
+ErrorDocument 404 /velvetandvine/error.php
