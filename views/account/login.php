@@ -4,13 +4,20 @@
             <div class="col-lg-6 mx-auto border shadow p-4">
                 <h2>Login</h2>
                 <hr />
+
+                <?php
+                if (!empty($model->error)) { ?>
+                    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                        <strong><?= $model->error ?></strong>
+                    </div>
+                <?php } ?>
+
                 <form method="post">
 
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Email*</label>
                         <div class="col-sm-8">
-                            <input class="form-control" name="email" value="">
-                            <span class="text-danger"></span>
+                            <input class="form-control" name="email" value="<?= $model->email ?>">
                         </div>
                     </div>
 
@@ -18,7 +25,6 @@
                         <label class="col-sm-4 col-form-label">Password*</label>
                         <div class="col-sm-8">
                             <input class="form-control" type="password" name="password">
-                            <span class="text-danger"></span>
                         </div>
                     </div>
 
