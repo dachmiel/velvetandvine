@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 // get the controller, action, and id from the query string
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'catalog'; // default controller is 'catalog'
