@@ -6,7 +6,6 @@ include_once "models/db.php";
 
 class AdminController extends BaseController
 {
-
     public function ManageInventory()
     {
         $Inventory = new Inventory();
@@ -19,6 +18,8 @@ class AdminController extends BaseController
 
         //fetch them all
         $Inventory->products = $statement->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($Inventory->products);
+        //var_dump($Inventory->products);
+
+        $this->view('ManageInventory', ['Inventory' => $Inventory]);
     }
 }
