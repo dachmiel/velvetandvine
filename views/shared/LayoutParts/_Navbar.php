@@ -49,10 +49,11 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/profile.php">Profile</a></li>
+              <li><a class="dropdown-item" href="/velvetandvine/admin/ManageInventory">Manage Inventory</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="views/account/logout.php">Logout</a></li>
+              <li><a class="dropdown-item" href="/velvetandvine/views/account/logout.php">Logout</a></li>
             </ul>
           </li>
         </ul>
