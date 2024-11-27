@@ -1,55 +1,46 @@
 <?php
+include_once "base/baseController.php";  // Adjust the path as needed
 
-class CatalogController
+class CatalogController extends BaseController
 {
     public function index($id = null)
     {
-        $pageContent = 'Views/Catalog/index.php'; // Set the page-specific content
-        include "Views/Shared/_Layout.php";
+        $this->view('index');
     }
     public function product()
     {
-        $pageContent = 'Views/Catalog/product.php';
-        include "Views/Shared/_Layout.php";
+        $this->view('product');
     }
     public function new($id = null)
     {
-        $pageContent = 'Views/Catalog/new.php'; // Set the page-specific content
-        include "Views/Shared/_Layout.php";
+        $this->view('new');
     }
     public function tops($id = null)
     {
-        $pageContent = 'Views/Catalog/tops.php'; // Set the page-specific content
-        include "Views/Shared/_Layout.php";
+        $this->view('tops');
     }
     public function dresses($id = null)
     {
-        $pageContent = 'Views/Catalog/dresses.php'; // Set the page-specific content
-        include "Views/Shared/_Layout.php";
+        $this->view('dresses');
     }
     public function bottoms($id = null)
     {
-        $pageContent = 'Views/Catalog/bottoms.php'; // Set the page-specific content
-        include "Views/Shared/_Layout.php";
+        $this->view('bottoms');
     }
     public function denim($id = null)
     {
-        $pageContent = 'Views/Catalog/denim.php'; // Set the page-specific content
-        include "Views/Shared/_Layout.php";
+        $this->view('denim');
     }
     public function accessories($id = null)
     {
-        $pageContent = 'Views/Catalog/accessories.php'; // Set the page-specific content
-        include "Views/Shared/_Layout.php";
+        $this->view('accessories');
     }
     public function jackets($id = null)
     {
-        $pageContent = 'Views/Catalog/jackets.php'; // Set the page-specific content
-        include "Views/Shared/_Layout.php";
+        $this->view('jackets');
     }
     public function sale($id = null)
     {
-        $pageContent = 'Views/Catalog/sale.php'; // Set the page-specific content
-        include "Views/Shared/_Layout.php";
+        $this->view('sale');
     }
 }
