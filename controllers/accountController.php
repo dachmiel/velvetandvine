@@ -2,6 +2,7 @@
 include_once "base/baseController.php";
 include_once 'models/ApplicationUser.php';
 include_once 'viewmodels/RegisterViewModel.php';
+include_once 'viewmodels/LoginViewModel.php';
 
 class AccountController extends BaseController
 {
@@ -13,6 +14,7 @@ class AccountController extends BaseController
     public function register()
     {
 
+        // if user is logged in, redirect to default page
         if (isset($_SESSION["email"])) {
             header("Location: /velvetandvine");
             exit;
@@ -66,7 +68,7 @@ class AccountController extends BaseController
                     if ($statement->execute()) {
                         $_SESSION["email"] = $RegisterViewModel->email;
                         // Redirect to login after successful registration
-                        header("Location: /velvetandvine/account/login");
+                        header("Location: /velvetandvine");
                         exit;
                     } else {
                         echo "Error registering user!";
@@ -82,6 +84,48 @@ class AccountController extends BaseController
 
     public function login($id = null)
     {
-        $this->view('login');
+        // if user is logged in, redirect to default page
+        if (isset($_SESSION["email"])) {
+            header("Location: /velvetandvine");
+            exit;
+        }
+        $LoginViewModel = new LoginViewModel();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $LoginViewModel->email = $_POST['email'];
+            $LoginViewModel->password = $_POST['password'];
+
+            if ($LoginViewModel->validate()) {
+
+                // connect to the DB
+                include "models/db.php";
+                $dbContext = getDatabaseConnection();
+
+                $statement = $dbContext->prepare("SELECT password FROM application_users WHERE email = :email");
+
+                $statement->bindParam(':email', $LoginViewModel->email, PDO::PARAM_STR);
+
+                $statement->execute();
+
+                // Fetch the result and store the password in $stored_password
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+                if ($result) {
+                    $stored_password = $result['password'];
+
+
+                    if (password_verify($LoginViewModel->password, $stored_password)) {
+                        $_SESSION["email"] = $LoginViewModel->email;
+                        header("Location: /velvetandvine");
+                        exit;
+                    }
+                }
+
+                $LoginViewModel->error = "Email or password invalid";
+            }
+        }
+        // unsuccessful login
+        // return view, passing in the viewmodel with the form data
+        $this->view('login', ['model' => $LoginViewModel]);
     }
 }
