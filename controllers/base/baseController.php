@@ -5,9 +5,9 @@ class BaseController
      * Render a view.
      *
      * @param string $action The name of the action to render
-     * @param array $data Optional data to pass to the view
+     * @param object $data Optional data to pass to the view
      */
-    public function view($action, $data = [])
+    public function View($action, $data = null)
     {
         // Get the controller name from the class name
         $controllerName = str_replace('Controller', '', get_class($this));  // e.g. "catalogcontroller"
@@ -19,11 +19,6 @@ class BaseController
         if (!file_exists($viewPath)) {
             // If the view file doesn't exist, render a 404 error page
             $viewPath = 'Views/Error/404.php'; // e.g. fallback to a 404 page
-        }
-
-        // Extract data to make variables available in the view
-        if (!empty($data)) {
-            extract($data); // Converts array keys to variables
         }
 
         // Set the page content for the layout
