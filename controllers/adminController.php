@@ -8,10 +8,14 @@ class AdminController extends BaseController
 {
     public function ManageInventory()
     {
+        if (!isset($_SESSION["email"])) {
+            header("Location: /velvetandvine");
+            exit;
+        }
         $Inventory = new Inventory();
         //connect
         $dbContext = getDatabaseConnection();
-        
+
         //sql query for the products
         $query = "SELECT * FROM products";
         $statement = $dbContext->query($query);
