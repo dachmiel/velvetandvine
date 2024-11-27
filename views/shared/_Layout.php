@@ -1,8 +1,9 @@
 <?php
 // Initialize the session
-session_start();
-
 $authenticated = false;
+if (isset($_SESSION["email"])) {
+    $authenticated = true;
+}
 ?>
 
 <!DOCTYPE html>
