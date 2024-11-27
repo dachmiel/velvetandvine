@@ -44,7 +44,7 @@
 
         <ul class="navbar-nav">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Admin
             </a>
             <ul class="dropdown-menu">
@@ -52,7 +52,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item" href="/logout.php">Logout</a></li>
+              <li><a class="dropdown-item" href="views/account/logout.php">Logout</a></li>
             </ul>
           </li>
         </ul>
