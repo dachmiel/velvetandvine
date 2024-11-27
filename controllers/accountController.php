@@ -1,5 +1,7 @@
 <?php
-include_once "base/baseController.php";  // Adjust the path as needed
+include_once "base/baseController.php";
+include_once 'models/ApplicationUser.php';
+include_once 'viewmodels/RegisterViewModel.php';
 
 class AccountController extends BaseController
 {
@@ -8,84 +10,67 @@ class AccountController extends BaseController
         $this->view('index');
     }
 
-    public function register($model)
+    public function register()
     {
-        // the model should be populated with some data from the form if it is a post
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Handle POST request (form submission)
+        $user = new ApplicationUser();
+        $RegisterViewModel = new RegisterViewModel();
 
-            // Capture form data
-            $email = $_POST['email'] ?? null;
-            $password = $_POST['password'] ?? null;
-            $confirmPassword = $_POST['confirm_password'] ?? null;
-            $firstName = $_POST['first_name'] ?? null;
-            $lastName = $_POST['last_name'] ?? null;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $RegisterViewModel->first_name = $_POST['first_name'];
+            $RegisterViewModel->last_name = $_POST['last_name'];
+            $RegisterViewModel->email = $_POST['email'];
+            $RegisterViewModel->password = $_POST['password'];
+            $RegisterViewModel->confirm_password = $_POST['confirm_password'];
 
-            $error = false;
+            if ($RegisterViewModel->validate()) {
 
-            // Perform validation (basic example)
-            if (!$email || !$password || !$confirmPassword || !$firstName || !$lastName) {
-                // Show an error message if any required field is missing
-                $error = true;
-            }
+                // connect to the DB
+                include "models/db.php";
+                $dbContext = getDatabaseConnection();
 
-            // Check if the password and confirmPassword match
-            if ($password !== $confirmPassword) {
-                $error = true;
-            }
+                // Prepared statement with PDO
+                $statement = $dbContext->prepare("SELECT userid FROM application_users WHERE email = :email");
+                $statement->bindParam(':email', $RegisterViewModel->email, PDO::PARAM_STR);
+                $statement->execute();
 
-            // Check if the email already exists
-            include "models/db.php";
-            $dbContext = getDatabaseConnection();
+                $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-            // Prepared statement with PDO
-            $statement = $dbContext->prepare("SELECT userid FROM application_users WHERE email = :email");
-            $statement->bindParam(':email', $email, PDO::PARAM_STR);
-            $statement->execute();
+                if ($result) {
+                    $RegisterViewModel->email_error = "Email already exists.";
+                    $RegisterViewModel->error = true;
+                }
 
-            $result = $statement->fetch(PDO::FETCH_ASSOC);
+                if (!$RegisterViewModel->error) {
+                    // Hash the password
+                    $hashed_password = password_hash($RegisterViewModel->password, PASSWORD_BCRYPT);
+                    // Define user type (default to 'Customer')
+                    $user_type = 'Customer'; // You can change this to 'Admin' or other roles if needed
 
-            if ($result) {
-                // If email already exists, show an error
-                $error = true;
-            }
+                    // Get the current date and time for created_date field
+                    $created_date = date('Y-m-d H:i:s');
 
-            if (!$error) {
-                // Hash the password
-                $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-                // Define user type (default to 'Customer')
-                $userType = 'Customer'; // You can change this to 'Admin' or other roles if needed
+                    // Insert new user into the database
+                    $statement = $dbContext->prepare("INSERT INTO application_users (email, password, firstname, lastname, createddate, usertype) VALUES (:email, :password, :first_name, :last_name, :created_date, :user_type)");
+                    $statement->bindParam(':email', $RegisterViewModel->email, PDO::PARAM_STR);
+                    $statement->bindParam(':password', $hashed_password, PDO::PARAM_STR);
+                    $statement->bindParam(':first_name', $RegisterViewModel->first_name, PDO::PARAM_STR);
+                    $statement->bindParam(':last_name', $RegisterViewModel->last_name, PDO::PARAM_STR);
+                    $statement->bindParam(':created_date', $created_date, PDO::PARAM_STR);
+                    $statement->bindParam(':user_type', $user_type, PDO::PARAM_STR);
 
-                // Get the current date and time for created_date field
-                $createdDate = date('Y-m-d H:i:s');
-
-                // Insert new user into the database
-                $statement = $dbContext->prepare("INSERT INTO application_users (email, password, firstname, lastname, createddate, usertype) VALUES (:email, :password, :first_name, :last_name, :created_date, :user_type)");
-                $statement->bindParam(':email', $email, PDO::PARAM_STR);
-                $statement->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
-                $statement->bindParam(':first_name', $firstName, PDO::PARAM_STR);
-                $statement->bindParam(':last_name', $lastName, PDO::PARAM_STR);
-                $statement->bindParam(':created_date', $createdDate, PDO::PARAM_STR);
-                $statement->bindParam(':user_type', $userType, PDO::PARAM_STR);
-
-                if ($statement->execute()) {
-                    // Redirect to login after successful registration
-                    header("Location: /velvetandvine/account/login");
-                    exit;
-                } else {
-                    echo "Error registering user!";
+                    if ($statement->execute()) {
+                        // Redirect to login after successful registration
+                        header("Location: /velvetandvine/account/login");
+                        exit;
+                    } else {
+                        echo "Error registering user!";
+                    }
                 }
             }
         }
-        // unsuccessful register, some error
-        // return view with the model of captured input data
-        // show errors
-        $this->view('register', $model);
-
-        // if (isset($_SESSION["email"])) {
-        //     header("location: /velvetandvine");
-        //     exit;
-        // }
+        // unsuccessful register
+        // return view, passing in the viewmodel with the form data
+        $this->view('register', ['model' => $RegisterViewModel]);
     }
 
 
