@@ -1,7 +1,7 @@
 <?php
 
 // get the controller, action, and id from the query string
-$controller = isset($_GET['controller']) ? $_GET['controller'] : 'home'; // default controller is 'home'
+$controller = isset($_GET['controller']) ? $_GET['controller'] : 'catalog'; // default controller is 'catalog'
 $action = isset($_GET['action']) ? $_GET['action'] : 'index'; // default action is 'index'
 $id = isset($_GET['id']) ? $_GET['id'] : null; // default id is null
 
@@ -10,7 +10,11 @@ $controllerFile = "controllers/{$controller}Controller.php"; // e.g. controllers
 if (file_exists($controllerFile)) {
     include $controllerFile; // include the controller file
 } else {
-    die("Controller {$controller} not found.");
+    // If controller doesn't exist, set a 404 error and load the error page
+    http_response_code(404); // Set the HTTP response code to 404
+    $pageContent = 'Views/Error/404.php';
+    include "Views/Shared/_Layout.php";
+    exit;
 }
 
 // create the controller object and call the action method
@@ -20,8 +24,16 @@ if (class_exists($controllerClass)) {
     if (method_exists($controllerObject, $action)) {
         $controllerObject->$action($id); // call the action method, passing the id
     } else {
-        die("Action {$action} not found in {$controllerClass}.");
+        // If controller doesn't exist, set a 404 error and load the error page
+        http_response_code(404); // Set the HTTP response code to 404
+        $pageContent = 'Views/Error/404.php';
+        include "Views/Shared/_Layout.php";
+        exit;
     }
 } else {
-    die("Controller class {$controllerClass} not found.");
+    // If controller doesn't exist, set a 404 error and load the error page
+    http_response_code(404); // Set the HTTP response code to 404
+    $pageContent = 'Views/Error/404.php';
+    include "Views/Shared/_Layout.php";
+    exit;
 }
