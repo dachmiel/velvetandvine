@@ -3,8 +3,11 @@
 RewriteEngine On
 RewriteBase /velvetandvine/
 
-# Route all requests to index.php
+# Rewrite /index to /index.php
+RewriteRule ^index$ index.php [QSA,L]
+
+# Route all requests to index.php for controller, action, and optional id
 RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)(/([0-9]+))?$ index.php?controller=$1&action=$2&id=$4 [QSA,L]
 
-# Catch-all rule to handle default action (index)
-RewriteRule ^([a-zA-Z0-9_-]+)?$ index.php?controller=$1&action=index [QSA,L]
+# Catch-all rule to handle default action (index), only if no action is provided
+RewriteRule ^([a-zA-Z0-9_-]+)$ index.php?controller=$1&action=index [QSA,L]
