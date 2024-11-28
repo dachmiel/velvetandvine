@@ -2,6 +2,9 @@
 include_once "base/baseController.php";  // Adjust the path as needed
 include_once "viewModels/TopsViewModel.php";
 include_once "viewModels/TopViewModel.php";
+include_once "viewModels/DressViewModel.php";
+include_once "viewModels/DressesViewModel.php";
+
 
 
 class CatalogController extends BaseController
@@ -56,7 +59,39 @@ class CatalogController extends BaseController
     }
     public function dresses($id = null)
     {
-        $this->view('dresses');
+        // connect to the DB
+        include "models/db.php";
+        $DressesViewModel = new DressesViewModel();
+        //connect
+        $dbContext = getDatabaseConnection();
+
+        //sql query for the products
+        $query = "SELECT * FROM products WHERE categoryid = :categoryid";
+        $statement = $dbContext->prepare($query);
+
+        $statement->bindParam(':categoryid', $categoryid, PDO::PARAM_INT);
+
+        $categoryid = 5;
+
+        $statement->execute();
+
+        //fetch them all
+        $dresses = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // Check if any products were returned
+        if ($dresses) {
+            foreach ($dresses as $dress) {
+                // Output or process each product here
+                $DressViewModel = new DressViewModel();
+                $DressViewModel->productID = $dress['ProductID'];
+                $DressViewModel->name = $dress['NAME'];
+                $DressViewModel->description = $dress['Description'];
+                $DressViewModel->price = $dress['Price'];
+                $DressesViewModel->dresses[] = $DressViewModel;
+            }
+        } else {
+            echo "No products found in this category.";
+        }
+        $this->view('dresses', ['model' => $DressesViewModel]);
     }
     public function bottoms($id = null)
     {
