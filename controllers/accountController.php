@@ -15,11 +15,10 @@ class AccountController extends BaseController
     {
 
         // if user is logged in, redirect to default page
-        if (isset($_SESSION["email"])) {
+        if (isset($_SESSION["userid"])) {
             header("Location: /velvetandvine");
             exit;
         }
-        $user = new ApplicationUser();
         $RegisterViewModel = new RegisterViewModel();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -66,9 +65,8 @@ class AccountController extends BaseController
                     $statement->bindParam(':user_type', $user_type, PDO::PARAM_STR);
 
                     if ($statement->execute()) {
-                        $_SESSION["email"] = $RegisterViewModel->email;
                         // Redirect to login after successful registration
-                        header("Location: /velvetandvine");
+                        header("Location: /velvetandvine/account/login");
                         exit;
                     } else {
                         echo "Error registering user!";
@@ -85,7 +83,7 @@ class AccountController extends BaseController
     public function login($id = null)
     {
         // if user is logged in, redirect to default page
-        if (isset($_SESSION["email"])) {
+        if (isset($_SESSION["userid"])) {
             header("Location: /velvetandvine");
             exit;
         }
@@ -101,21 +99,26 @@ class AccountController extends BaseController
                 include "models/db.php";
                 $dbContext = getDatabaseConnection();
 
-                $statement = $dbContext->prepare("SELECT password FROM application_users WHERE email = :email");
+                // Read user from the database
+                $statement = $dbContext->prepare("SELECT userid, email, password, usertype FROM application_users WHERE email = :email");
 
                 $statement->bindParam(':email', $LoginViewModel->email, PDO::PARAM_STR);
 
                 $statement->execute();
 
-                // Fetch the result and store the password in $stored_password
-                $result = $statement->fetch(PDO::FETCH_ASSOC);
+                // Fetch the user
+                $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-                if ($result) {
-                    $stored_password = $result['password'];
+                if ($user) {
+                    $userID = $user['userid'];
+                    $email = $user['email'];
+                    $password = $user['password'];
+                    $user_type = $user['usertype'];
 
-
-                    if (password_verify($LoginViewModel->password, $stored_password)) {
-                        $_SESSION["email"] = $LoginViewModel->email;
+                    if (password_verify($LoginViewModel->password, $password)) {
+                        $_SESSION["userid"] = $userID;
+                        $_SESSION["email"] = $email;
+                        $_SESSION["user_type"] = $user_type;
                         header("Location: /velvetandvine");
                         exit;
                     }
