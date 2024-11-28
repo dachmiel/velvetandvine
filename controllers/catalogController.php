@@ -11,36 +11,45 @@ class CatalogController extends BaseController
 {
     public function index($id = null)
     {
-        // connect to the DB
+        // Connect to the DB
         include "models/db.php";
-        $ProductsViewModel = new ProductsViewModel();
-        //connect
         $dbContext = getDatabaseConnection();
 
-        //sql query for the products
+        // Query to fetch all products
         $query = "SELECT * FROM products";
         $statement = $dbContext->prepare($query);
-
         $statement->execute();
 
-        //fetch them all
+        // Fetch the products
         $products = $statement->fetchAll(PDO::FETCH_ASSOC);
-        // Check if any products were returned
-        if ($products) {
-            foreach ($products as $product) {
-                // Output or process each product here
-                $ProductViewModel = new ProductViewModel();
-                $ProductViewModel->productID = $product['ProductID'];
-                $ProductViewModel->name = $product['NAME'];
-                $ProductViewModel->description = $product['Description'];
-                $ProductViewModel->price = $product['Price'];
-                $ProductsViewModel->products[] = $ProductViewModel;
-            }
-        } else {
-            echo "No products found.";
+
+        // Query to fetch categories
+        $categoryQuery = "SELECT CategoryID, NAME FROM product_categories";
+        $categoryStatement = $dbContext->prepare($categoryQuery);
+        $categoryStatement->execute();
+        $categories = $categoryStatement->fetchAll(PDO::FETCH_ASSOC);
+
+        // Map categoryId to categoryName
+        $categoryMap = [];
+        foreach ($categories as $category) {
+            $categoryMap[$category['CategoryID']] = $category['NAME'];
         }
-        $this->view('index', ['model' => $ProductsViewModel]);
+
+        // Group the products by categoryId
+        $groupedProducts = [];
+        foreach ($products as $product) {
+            $categoryId = $product['CategoryID'];
+            if (!isset($groupedProducts[$categoryId])) {
+                $groupedProducts[$categoryId] = [];
+            }
+            $groupedProducts[$categoryId][] = $product;
+        }
+
+        // Pass grouped products and category names to the view
+        $this->view('index', ['model' => $groupedProducts, 'categoryMap' => $categoryMap]);
     }
+
+
     public function product()
     {
         $this->view('product');
