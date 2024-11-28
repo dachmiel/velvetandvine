@@ -8,7 +8,7 @@ class AdminController extends BaseController
 {
     public function ManageInventory()
     {
-        if (!isset($_SESSION["email"])) {
+        if (!isset($_SESSION["userid"])) {
             header("Location: /velvetandvine");
             exit;
         }
