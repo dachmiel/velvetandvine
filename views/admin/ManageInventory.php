@@ -1,5 +1,3 @@
-
-<!DOCTYPE html>
 <main>
     <div class="container py-4">
         <h2>Manage Inventory</h2>
@@ -25,7 +23,7 @@
                             <td>$<?= number_format($product['Price'], 2) ?></td>
                             <td><?= $product['StockQuantity'] ?></td>
                             <td><?= $product['CategoryID'] ?></td>
-                        </td>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
