@@ -33,7 +33,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/catalog/denim">Denim</a>
+          <a class="nav-link" href="/velvetandvine/catalog/denims">Denims</a>
         </li>
 
         <li class="nav-item">
