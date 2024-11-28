@@ -3,6 +3,19 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+      <form class="form-inline my-2 my-lg-0 search-form">
+        <div class="search-wrapper" style="position: relative; display: flex; align-items: center;">
+          <!-- Input field with padding on the left to make room for the icon -->
+          <input class="search-input form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+            style="padding-left: 40px; width: 100%; padding-right: 30px;">
+          <!-- Search icon inside the input -->
+          <button class="search-button" type="submit"
+            style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; padding: 0;">
+            <img src="/velvetandvine/images/search-icon.png" alt="Search" style="width: 20px; height: 20px;">
+          </button>
+        </div>
+      </form>
+
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="/velvetandvine/catalog/new">New!</a>
