@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg" style="background-color: #333; padding: 1rem; position: sticky; top: 0;">
   <div class="container">
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
       <form class="form-inline my-2 my-lg-0 search-form">
@@ -34,7 +33,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="/velvetandvine/catalog/denims">Denims</a>
+          <a class="nav-link" href="/velvetandvine/catalog/denim">Denim</a>
         </li>
 
         <li class="nav-item">
@@ -51,47 +50,58 @@
       </ul>
 
       <?php
-      if ($this->isAuthenticated() && $this->isAdmin()) {
-
+      // Check if $this is available and is an object
+      if (isset($this) && is_object($this)) {
+        if ($this->isAuthenticated() && $this->isAdmin()) {
       ?>
-
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Admin
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/profile.php">Profile</a></li>
-              <li><a class="dropdown-item" href="/velvetandvine/admin/manageinventory">Manage Inventory</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="/velvetandvine/views/account/logout.php">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
-
-      <?php
-      } else if ($this->isAuthenticated() && !$this->isAdmin()) {
-      ?>
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Settings
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/profile.php">Profile</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="/velvetandvine/views/account/logout.php">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
-      <?php
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Admin
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/profile.php">Profile</a></li>
+                <li><a class="dropdown-item" href="/velvetandvine/admin/manageinventory">Manage Inventory</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/velvetandvine/views/account/logout.php">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        <?php
+        } elseif ($this->isAuthenticated() && !$this->isAdmin()) {
+        ?>
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Settings
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/profile.php">Profile</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/velvetandvine/views/account/logout.php">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        <?php
+        } else {
+        ?>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-outline-light me-2" href="/velvetandvine/account/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-light" href="/velvetandvine/account/login">Login</a>
+            </li>
+          </ul>
+        <?php
+        }
       } else {
-      ?>
-
+        // This section will be shown when $this is not available (e.g., 404 page)
+        ?>
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="btn btn-outline-light me-2" href="/velvetandvine/account/register">Register</a>
@@ -100,7 +110,6 @@
             <a class="btn btn-light" href="/velvetandvine/account/login">Login</a>
           </li>
         </ul>
-
       <?php
       }
       ?>
