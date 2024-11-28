@@ -1,5 +1,8 @@
 <?php
 include_once "base/baseController.php";  // Adjust the path as needed
+include_once "viewModels/TopsViewModel.php";
+include_once "viewModels/TopViewModel.php";
+
 
 class CatalogController extends BaseController
 {
@@ -17,7 +20,39 @@ class CatalogController extends BaseController
     }
     public function tops($id = null)
     {
-        $this->view('tops');
+        // connect to the DB
+        include "models/db.php";
+        $TopsViewModel = new TopsViewModel();
+        //connect
+        $dbContext = getDatabaseConnection();
+
+        //sql query for the products
+        $query = "SELECT * FROM products WHERE categoryid = :categoryid";
+        $statement = $dbContext->prepare($query);
+
+        $statement->bindParam(':categoryid', $categoryid, PDO::PARAM_INT);
+
+        $categoryid = 2;
+
+        $statement->execute();
+
+        //fetch them all
+        $tops = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // Check if any products were returned
+        if ($tops) {
+            foreach ($tops as $top) {
+                // Output or process each product here
+                $TopViewModel = new TopViewModel();
+                $TopViewModel->productID = $top['ProductID'];
+                $TopViewModel->name = $top['NAME'];
+                $TopViewModel->description = $top['Description'];
+                $TopViewModel->price = $top['Price'];
+                $TopsViewModel->tops[] = $TopViewModel;
+            }
+        } else {
+            echo "No products found in this category.";
+        }
+        $this->view('tops', ['model' => $TopsViewModel]);
     }
     public function dresses($id = null)
     {
