@@ -7,7 +7,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="top-card" style="border: 1px solid #ccc; padding: 20px; margin-bottom: 20px; text-align: center;">
                             <!-- You may need to check if an image exists -->
-                            <img src="<?php echo $dress->image ?? 'path_to_default_image.jpg'; ?>" alt="<?php echo htmlspecialchars($dress->name); ?>" style="width: 100%; height: auto;">
+                            <img src="<?php echo $dress->image ?? '/velvetandvine/images/no-image.jpg'; ?>" alt="<?php echo htmlspecialchars($dress->name); ?>" style="width: 100%; height: auto;">
 
                             <h2><?php echo htmlspecialchars($dress->name); ?></h2>
                             <p><?php echo htmlspecialchars($dress->description); ?></p>
