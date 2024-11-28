@@ -4,14 +4,42 @@ include_once "viewModels/TopsViewModel.php";
 include_once "viewModels/TopViewModel.php";
 include_once "viewModels/DressViewModel.php";
 include_once "viewModels/DressesViewModel.php";
-
-
+include_once "viewModels/ProductViewModel.php";
+include_once "viewModels/ProductsViewModel.php";
 
 class CatalogController extends BaseController
 {
     public function index($id = null)
     {
-        $this->view('index');
+        // connect to the DB
+        include "models/db.php";
+        $ProductsViewModel = new ProductsViewModel();
+        //connect
+        $dbContext = getDatabaseConnection();
+
+        //sql query for the products
+        $query = "SELECT * FROM products";
+        $statement = $dbContext->prepare($query);
+
+        $statement->execute();
+
+        //fetch them all
+        $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+        // Check if any products were returned
+        if ($products) {
+            foreach ($products as $product) {
+                // Output or process each product here
+                $ProductViewModel = new ProductViewModel();
+                $ProductViewModel->productID = $product['ProductID'];
+                $ProductViewModel->name = $product['NAME'];
+                $ProductViewModel->description = $product['Description'];
+                $ProductViewModel->price = $product['Price'];
+                $ProductsViewModel->products[] = $ProductViewModel;
+            }
+        } else {
+            echo "No products found.";
+        }
+        $this->view('index', ['model' => $ProductsViewModel]);
     }
     public function product()
     {
