@@ -15,7 +15,7 @@ class AccountController extends BaseController
     {
 
         // if user is logged in, redirect to default page
-        if (isset($_SESSION["userid"])) {
+        if ($this->isAuthenticated()) {
             header("Location: /velvetandvine");
             exit;
         }
@@ -83,7 +83,7 @@ class AccountController extends BaseController
     public function login($id = null)
     {
         // if user is logged in, redirect to default page
-        if (isset($_SESSION["userid"])) {
+        if ($this->isAuthenticated()) {
             header("Location: /velvetandvine");
             exit;
         }

@@ -38,7 +38,7 @@
       </ul>
 
       <?php
-      if ($authenticated) {
+      if ($this->isAuthenticated()) {
 
       ?>
 

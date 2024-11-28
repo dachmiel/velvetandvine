@@ -1,11 +1,3 @@
-<?php
-// Initialize the session
-$authenticated = false;
-if (isset($_SESSION["userid"])) {
-    $authenticated = true;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

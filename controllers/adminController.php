@@ -8,7 +8,7 @@ class AdminController extends BaseController
 {
     public function ManageInventory()
     {
-        if (!isset($_SESSION["userid"])) {
+        if (!$this->isAuthenticated()) {
             header("Location: /velvetandvine");
             exit;
         }
