@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg" style="background-color: #333; padding: 1rem;">
+<nav class="navbar navbar-expand-lg" style="background-color: #333; padding: 1rem; position: sticky; top: 0;">
   <div class="container">
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
