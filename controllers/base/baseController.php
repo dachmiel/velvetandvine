@@ -20,7 +20,18 @@ class BaseController
             $this->user = $_SESSION["userid"];  // Store the user ID or other relevant session info
         }
     }
-
+    /**
+     * Check if the user is authenticated.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        if ($_SESSION["user_type"] == "Admin") {
+            return true;
+        }
+        return false;
+    }
     /**
      * Check if the user is authenticated.
      *

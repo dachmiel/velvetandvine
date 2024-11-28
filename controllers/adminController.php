@@ -8,7 +8,7 @@ class AdminController extends BaseController
 {
     public function ManageInventory()
     {
-        if (!$this->isAuthenticated()) {
+        if (!$this->isAuthenticated() || !$this->isAdmin()) {
             header("Location: /velvetandvine");
             exit;
         }

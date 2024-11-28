@@ -38,7 +38,7 @@
       </ul>
 
       <?php
-      if ($this->isAuthenticated()) {
+      if ($this->isAuthenticated() && $this->isAdmin()) {
 
       ?>
 
@@ -58,6 +58,23 @@
           </li>
         </ul>
 
+      <?php
+      } else if ($this->isAuthenticated() && !$this->isAdmin()) {
+      ?>
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Settings
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/profile.php">Profile</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="/velvetandvine/views/account/logout.php">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
       <?php
       } else {
       ?>
