@@ -134,9 +134,9 @@ class CatalogController extends BaseController
     {
         $this->view('bottoms');
     }
-    public function denim($id = null)
+    public function denims($id = null)
     {
-        $this->view('denim');
+        $this->view('denims');
     }
     public function accessories($id = null)
     {
