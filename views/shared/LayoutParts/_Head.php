@@ -7,7 +7,7 @@
     <?php
     } else {
     ?>
-        <title>Velvet&Vine</title>
+        <title>Velvet & Vine - Shop Fashion Clothing & Accessories - Official Site - Velvet & Vine</title>
     <?php
     }
     ?>
