@@ -38,7 +38,7 @@
       </ul>
 
       <?php
-      if ($authenticated) {
+      if ($this->isAuthenticated()) {
 
       ?>
 
@@ -49,7 +49,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/profile.php">Profile</a></li>
-              <li><a class="dropdown-item" href="/velvetandvine/admin/ManageInventory">Manage Inventory</a></li>
+              <li><a class="dropdown-item" href="/velvetandvine/admin/manageinventory">Manage Inventory</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
