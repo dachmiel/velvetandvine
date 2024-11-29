@@ -33,7 +33,7 @@
                                     <div class="top-card" style="padding: 20px; text-align: center;">
                                         <!-- Check if image exists, otherwise use a default image -->
                                         <a href="/velvetandvine/catalog/product?pid=<?php echo urlencode($product['ProductID']); ?>" style="text-decoration: none; color: inherit;">
-                                            <img src="<?php echo isset($product['image']) ? $product['image'] : '/velvetandvine/images/no-image.jpg'; ?>" alt="<?php echo htmlspecialchars($product['product_name'] ?? 'No Name'); ?>" style="width: 100%; height: auto; margin-bottom: 10px;">
+                                            <img src="/velvetandvine/images/products/product_<?php echo $product['ProductID'] ?>.jpg" onerror="this.onerror=null;this.src='/velvetandvine/images/no-image.jpg';" alt="<?php echo htmlspecialchars($product['product_name'] ?? 'No Name'); ?>" style="width: 250px; height: 250px; object-fit: cover; margin-bottom: 10px;">
 
                                             <h2 style="font-size: 16px;"><?php echo htmlspecialchars($product['NAME'] ?? 'No Name'); ?></h2>
                                         </a>
