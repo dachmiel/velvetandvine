@@ -21,7 +21,8 @@
       <!-- Right: Dynamic Content -->
       <div class="auth-buttons d-flex align-items-center">
         <?php
-        if ($this->isAuthenticated() && $this->isAdmin()) {
+
+        if (isset($_SESSION["userid"]) && $_SESSION["user_type"] == "Admin") {
         ?>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
@@ -39,7 +40,7 @@
             </li>
           </ul>
         <?php
-        } else if ($this->isAuthenticated() && !$this->isAdmin()) {
+        } else if (isset($_SESSION["userid"]) && $_SESSION["user_type"] == "Customer") {
         ?>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
