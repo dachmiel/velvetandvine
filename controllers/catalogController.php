@@ -1,23 +1,7 @@
 <?php
 include_once "base/baseController.php";  // Adjust the path as needed
-include_once "viewModels/TopsViewModel.php";
-include_once "viewModels/TopViewModel.php";
-include_once "viewModels/DressViewModel.php";
-include_once "viewModels/DressesViewModel.php";
-include_once "viewModels/ProductViewModel.php";
-include_once "viewModels/ProductsViewModel.php";
+include_once "viewModels/CatalogViewModel.php";
 
-include_once "viewModels/BottomsViewModel.php";
-include_once "viewModels/BottomViewModel.php";
-
-include_once "viewModels/DenimsViewModel.php";
-include_once "viewModels/DenimViewModel.php";
-
-include_once "viewModels/AccessoriesViewModel.php";
-include_once "viewModels/AccessoryViewModel.php";
-
-include_once "viewModels/JacketsViewModel.php";
-include_once "viewModels/JacketViewModel.php";
 
 class CatalogController extends BaseController
 {
@@ -64,7 +48,26 @@ class CatalogController extends BaseController
 
     public function product()
     {
-        $this->view('product');
+        include "models/db.php";
+        $ProductViewModel = new ProductViewModel();
+        $dbContext = getDatabaseConnection();
+
+        $query = "SELECT ProductID, NAME, Description, Price FROM products WHERE ProductID = :pid";
+        $statement = $dbContext->prepare($query);
+        $statement->bindParam(':pid', $pid, PDO::PARAM_INT);
+        $pid = isset($_GET['pid']) ? (int)$_GET['pid'] : 0;
+        $statement->execute();
+        $product = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($product) {
+            $ProductViewModel->productID = $product['ProductID'];
+            $ProductViewModel->name = $product['NAME'];
+            $ProductViewModel->description = $product['Description'];
+            $ProductViewModel->price = $product['Price'];
+        } else {
+            echo "No product found.";
+        }
+        $this->view('product', ['model' => $ProductViewModel]);
     }
     public function new($id = null)
     {

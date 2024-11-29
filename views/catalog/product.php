@@ -1,58 +1,20 @@
 <main>
-    <?php
-    // Simulate a product database
-    $products = [
-        [
-            "name" => "Classic White T-Shirt",
-            "price" => "$20.00",
-            "description" => "A classic white t-shirt made of 100% cotton.",
-            "image" => "../images/classic-white-tshirt.png"
-        ],
-        [
-            "name" => "Denim Jacket",
-            "price" => "$45.00",
-            "description" => "A stylish denim jacket for all seasons.",
-            "image" => "../images/denim-jacket.png"
-        ],
-        [
-            "name" => "Black Jeans",
-            "price" => "$35.00",
-            "description" => "A pair of classic black jeans.",
-            "image" => "../images/black-jeans.png"
-        ]
-    ];
-    // Get the product name from the query string
-    $product_name = $_GET['product_name'] ?? null;
-    // Find the product
-    $product = null;
-    foreach ($products as $p) {
-        if ($p['name'] === $product_name) {
-            $product = $p;
-            break;
-        }
-    }
-    if (!$product) {
-        // If the product is not found, redirect to an error page or show a message
-        echo "<h1>Product not found!</h1>";
-        exit;
-    }
-    ?>
 
     <div class="container mt-4">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <img src="<?php echo $product['image']; ?>" alt="<?php echo $product['name']; ?>" style="width: 100%; height: 100%;">
+                <img src="/velvetandvine/images/no-image.jpg" alt="<?php echo $model->name; ?>" style="width: 100%; height: 100%;">
             </div>
             <div class="col-md-6">
-                <h1><?php echo $product['name']; ?></h1>
-                <p><?php echo $product['description']; ?></p>
-                <p><strong>Price: <?php echo $product['price']; ?></strong></p>
+                <h1><?php echo $model->name; ?></h1>
+                <p><?php echo $model->description; ?></p>
+                <p><strong>Price: <?php echo $model->price; ?></strong></p>
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <a href="/buy.php?product_name=<?php echo urlencode($product['name']); ?>" class="btn btn-outline-dark ">Small</a>
-                        <a href="/buy.php?product_name=<?php echo urlencode($product['name']); ?>" class="btn btn-outline-dark ">Medim</a>
-                        <a href="/buy.php?product_name=<?php echo urlencode($product['name']); ?>" class="btn btn-outline-dark ">Large</a>
-                        <a href="/buy.php?product_name=<?php echo urlencode($product['name']); ?>" class="btn btn-outline-dark ">XL</a>
+                        <a class="btn btn-outline-dark ">Small</a>
+                        <a class="btn btn-outline-dark ">Medim</a>
+                        <a class="btn btn-outline-dark ">Large</a>
+                        <a class="btn btn-outline-dark ">XL</a>
                     </div>
                     <div class="mb-3">
                         <label for="quantity" class="form-label"><strong>Quantity:</strong></label>
@@ -78,7 +40,7 @@
                             quantityInput.value = newQuantity;
                         }
                     </script>
-                    <a href="/buy.php?product_name=<?php echo urlencode($product['name']); ?>" class="btn btn-outline-dark ">Add to Cart</a>
+                    <a href="/buy.php?pid=<?php echo urlencode($model->productID); ?>" class="btn btn-outline-dark ">Add to Cart</a>
                 </div>
             </div>
         </div>
