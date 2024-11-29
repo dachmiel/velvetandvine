@@ -1,23 +1,7 @@
 <?php
 include_once "base/baseController.php";  // Adjust the path as needed
-include_once "viewModels/TopsViewModel.php";
-include_once "viewModels/TopViewModel.php";
-include_once "viewModels/DressViewModel.php";
-include_once "viewModels/DressesViewModel.php";
-include_once "viewModels/ProductViewModel.php";
-include_once "viewModels/ProductsViewModel.php";
+include_once "viewModels/CatalogViewModel.php";
 
-include_once "viewModels/BottomsViewModel.php";
-include_once "viewModels/BottomViewModel.php";
-
-include_once "viewModels/DenimsViewModel.php";
-include_once "viewModels/DenimViewModel.php";
-
-include_once "viewModels/AccessoriesViewModel.php";
-include_once "viewModels/AccessoryViewModel.php";
-
-include_once "viewModels/JacketsViewModel.php";
-include_once "viewModels/JacketViewModel.php";
 
 class CatalogController extends BaseController
 {
