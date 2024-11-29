@@ -10,9 +10,9 @@
                 <p><strong>Price: <?php echo $model->price; ?></strong></p>
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <a class="btn btn-outline-dark ">Small</a>
-                        <a class="btn btn-outline-dark ">Medim</a>
-                        <a class="btn btn-outline-dark ">Large</a>
+                        <a class="btn btn-outline-dark ">S</a>
+                        <a class="btn btn-outline-dark ">M</a>
+                        <a class="btn btn-outline-dark ">L</a>
                         <a class="btn btn-outline-dark ">XL</a>
                     </div>
                     <div class="mb-3">
