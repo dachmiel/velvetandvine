@@ -55,7 +55,7 @@ class CatalogController extends BaseController
         $query = "SELECT ProductID, NAME, Description, Price FROM products WHERE ProductID = :pid";
         $statement = $dbContext->prepare($query);
         $statement->bindParam(':pid', $pid, PDO::PARAM_INT);
-        $pid = isset($_GET['pid']) ? (int)$_GET['pid'] : 0;
+        $pid = $_GET['pid'];
         $statement->execute();
         $product = $statement->fetch(PDO::FETCH_ASSOC);
 
