@@ -48,7 +48,26 @@ class CatalogController extends BaseController
 
     public function product()
     {
-        $this->view('product');
+        include "models/db.php";
+        $ProductViewModel = new ProductViewModel();
+        $dbContext = getDatabaseConnection();
+
+        $query = "SELECT ProductID, NAME, Description, Price FROM products WHERE ProductID = :pid";
+        $statement = $dbContext->prepare($query);
+        $statement->bindParam(':pid', $pid, PDO::PARAM_INT);
+        $pid = isset($_GET['pid']) ? (int)$_GET['pid'] : 0;
+        $statement->execute();
+        $product = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($product) {
+            $ProductViewModel->productID = $product['ProductID'];
+            $ProductViewModel->name = $product['NAME'];
+            $ProductViewModel->description = $product['Description'];
+            $ProductViewModel->price = $product['Price'];
+        } else {
+            echo "No product found.";
+        }
+        $this->view('product', ['model' => $ProductViewModel]);
     }
     public function new($id = null)
     {
