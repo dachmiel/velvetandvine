@@ -3,7 +3,7 @@
         <h2>Manage Inventory</h2>
         <hr />
 
-            <!-- Add Item Button -->
+        <!-- Add Item Button -->
         <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
 
         <!-- Add Item Form -->
@@ -26,22 +26,22 @@
                             </div>
                             <div class="mb-3">
                                 <label for="price" class="form-label">Price</label>
-                                <input type="number" step="0.01" class="form-control" id="price" name="Price" required>
+                                <input type="number" step="0.01" class="form-control" id="price" name="Price" required min="0">
                             </div>
                             <div class="mb-3">
                                 <label for="stockQuantity" class="form-label">Stock Quantity</label>
-                                <input type="number" class="form-control" id="stockQuantity" name="StockQuantity" required>
+                                <input type="number" class="form-control" id="stockQuantity" name="StockQuantity" required min="1">
                             </div>
                             <div class="mb-3">
-                            <label for="categoryID" class="form-label">Category</label>
-                            <select class="form-select" id="categoryID" name="CategoryID" required>
-                                <option value="" disabled selected>Select a category</option>
-                                <?php foreach ($categories as $category): ?>
-                                    <option value="<?= $category['CategoryID'] ?>">
-                                        <?= htmlspecialchars($category['CategoryName']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
+                                <label for="categoryID" class="form-label">Category</label>
+                                <select class="form-select" id="categoryID" name="CategoryID" required>
+                                    <option value="" disabled selected>Select a category</option>
+                                    <?php foreach ($categories as $category): ?>
+                                        <option value="<?= $category['CategoryID'] ?>">
+                                            <?= htmlspecialchars($category['CategoryName']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Add Item</button>
                         </form>
