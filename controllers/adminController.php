@@ -59,7 +59,7 @@ class AdminController extends BaseController
             exit;
         }
 
-        $AdminViewModel = new addItemViewModel();
+        $addItemViewModel = new addItemViewModel();
 
         //requesting to add to DB
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -71,7 +71,7 @@ class AdminController extends BaseController
             $categoryID = $_POST['CategoryID'];
 
             //cgeck the data
-            if ($AdminViewModel->validate()) {
+            if ($addItemViewModel->validate()) {
                 //CONNECT
                 $dbContext = getDatabaseConnection();
 
