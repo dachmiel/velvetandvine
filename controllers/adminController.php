@@ -12,6 +12,7 @@ class AdminController extends BaseController
             header("Location: /velvetandvine");
             exit;
         }
+
         $Inventory = new Inventory();
         //connect
         $dbContext = getDatabaseConnection();
@@ -39,17 +40,18 @@ class AdminController extends BaseController
         SELECT CategoryID, NAME AS CategoryName 
         FROM product_categories
         ORDER BY NAME ASC";
-    
-    $statementCategories = $dbContext->query($queryCategories);
-    
-    //get the categories for the dropdfown
-    $categories = $statementCategories->fetchAll(PDO::FETCH_ASSOC);
 
-    // Pass products and categories to the view
-    $this->view('ManageInventory', ['Inventory' => $Inventory, 'categories' => $categories]);
+        $statementCategories = $dbContext->query($queryCategories);
+
+        //get the categories for the dropdfown
+        $categories = $statementCategories->fetchAll(PDO::FETCH_ASSOC);
+
+        // Pass products and categories to the view
+        $this->view('ManageInventory', ['Inventory' => $Inventory, 'categories' => $categories]);
     }
 
-    public function addItem() {
+    public function addItem()
+    {
 
         //if NOT admin the BEGONE
         if (!$this->isAuthenticated() || !$this->isAdmin()) {
@@ -57,31 +59,33 @@ class AdminController extends BaseController
             exit;
         }
 
+        $AdminViewModel = new addItemViewModel();
+
         //requesting to add to DB
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            
+
             $name = $_POST['NAME'];
             $description = $_POST['Description'] ?? null;
             $price = $_POST['Price'];
             $stockQuantity = $_POST['StockQuantity'];
             $categoryID = $_POST['CategoryID'];
-    
+
             //cgeck the data
-            if (!empty($name) && is_numeric($price) && is_numeric($stockQuantity) && is_numeric($categoryID)) {
+            if ($AdminViewModel->validate()) {
                 //CONNECT
                 $dbContext = getDatabaseConnection();
-    
+
                 //prepare INSERTION
                 $query = "INSERT INTO products (NAME, Description, Price, StockQuantity, CategoryID) VALUES (:name, :description, :price, :stockQuantity, :categoryID)";
                 $statement = $dbContext->prepare($query);
-    
+
                 //BIND to the new thing
                 $statement->bindParam(':name', $name, PDO::PARAM_STR);
                 $statement->bindParam(':description', $description, PDO::PARAM_STR);
                 $statement->bindParam(':price', $price, PDO::PARAM_STR);
                 $statement->bindParam(':stockQuantity', $stockQuantity, PDO::PARAM_INT);
                 $statement->bindParam(':categoryID', $categoryID, PDO::PARAM_INT);
-    
+
                 //do the query
                 if ($statement->execute()) {
                     //go back to inventory page
@@ -95,6 +99,4 @@ class AdminController extends BaseController
             }
         }
     }
-    
-
 }
