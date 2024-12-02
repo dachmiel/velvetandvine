@@ -16,21 +16,17 @@ class AddItemViewModel
             $this->name_error = "Name is required.";
             $this->error = true;
         }
-        if (!is_numeric($this->Price) || $this->Price <= 0) {
+        if (!is_numeric($this->Price) || $this->Price < 0) {
             $this->error = true;
         }
         if (!is_numeric($this->StockQuantity) || $this->StockQuantity < 0) {
             $this->error = true;
         }
-        if (!is_numeric($this->CategoryID)) {
+        if (!is_numeric($this->CategoryID) || $this->CategoryID < 1) {
             $this->error = true;
         }
         return !$this->error;
     }
 }
 
-class ManageInventoryViewModel
-{
-}
-
-?>
+class ManageInventoryViewModel {}

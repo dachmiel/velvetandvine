@@ -12,6 +12,7 @@ class AdminController extends BaseController
             header("Location: /velvetandvine");
             exit;
         }
+
         $Inventory = new Inventory();
         //connect
         $dbContext = getDatabaseConnection();
@@ -35,10 +36,22 @@ class AdminController extends BaseController
         $Inventory->products = $statement->fetchAll(PDO::FETCH_ASSOC);
         //var_dump($Inventory->products);
 
-        $this->view('ManageInventory', ['Inventory' => $Inventory]);
+        $queryCategories = "
+        SELECT CategoryID, NAME AS CategoryName 
+        FROM product_categories
+        ORDER BY NAME ASC";
+
+        $statementCategories = $dbContext->query($queryCategories);
+
+        //get the categories for the dropdfown
+        $categories = $statementCategories->fetchAll(PDO::FETCH_ASSOC);
+
+        // Pass products and categories to the view
+        $this->view('ManageInventory', ['Inventory' => $Inventory, 'categories' => $categories]);
     }
 
-    public function addItem() {
+    public function addItem()
+    {
 
         //if NOT admin the BEGONE
         if (!$this->isAuthenticated() || !$this->isAdmin()) {
@@ -46,44 +59,48 @@ class AdminController extends BaseController
             exit;
         }
 
+        $addItemViewModel = new addItemViewModel();
+
         //requesting to add to DB
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            
-            $name = $_POST['NAME'];
-            $description = $_POST['Description'] ?? null;
-            $price = $_POST['Price'];
-            $stockQuantity = $_POST['StockQuantity'];
-            $categoryID = $_POST['CategoryID'];
-    
+
+            $addItemViewModel->NAME = $_POST['NAME'];
+            $addItemViewModel->Description = $_POST['Description'] ?? null;
+            $addItemViewModel->Price = $_POST['Price'];
+            $addItemViewModel->StockQuantity = $_POST['StockQuantity'];
+            $addItemViewModel->CategoryID = $_POST['CategoryID'];
+
             //cgeck the data
-            if (!empty($name) && is_numeric($price) && is_numeric($stockQuantity) && is_numeric($categoryID)) {
+            if ($addItemViewModel->validate()) {
                 //CONNECT
                 $dbContext = getDatabaseConnection();
-    
+
                 //prepare INSERTION
                 $query = "INSERT INTO products (NAME, Description, Price, StockQuantity, CategoryID) VALUES (:name, :description, :price, :stockQuantity, :categoryID)";
                 $statement = $dbContext->prepare($query);
-    
+
                 //BIND to the new thing
-                $statement->bindParam(':name', $name, PDO::PARAM_STR);
-                $statement->bindParam(':description', $description, PDO::PARAM_STR);
-                $statement->bindParam(':price', $price, PDO::PARAM_STR);
-                $statement->bindParam(':stockQuantity', $stockQuantity, PDO::PARAM_INT);
-                $statement->bindParam(':categoryID', $categoryID, PDO::PARAM_INT);
-    
+                $statement->bindParam(':name', $addItemViewModel->NAME, PDO::PARAM_STR);
+                $statement->bindParam(':description', $addItemViewModel->Description, PDO::PARAM_STR);
+                $statement->bindParam(':price', $addItemViewModel->Price, PDO::PARAM_STR);
+                $statement->bindParam(':stockQuantity', $addItemViewModel->StockQuantity, PDO::PARAM_INT);
+                $statement->bindParam(':categoryID', $addItemViewModel->CategoryID, PDO::PARAM_INT);
+
                 //do the query
-                if ($statement->execute()) {
+                try {
+                    $statement->execute();
                     //go back to inventory page
                     header("Location: /velvetandvine/admin/manageinventory");
                     exit;
-                } else {
-                    echo "Error adding product.";
+                } catch (PDOException $e) {
+                    $error = "Database Error: ";
+                    $error .= $e->getMessage();
+                    include('views/error/index.php');
+                    exit();
                 }
             } else {
                 echo "Invalid input.";
             }
         }
     }
-    
-
 }
