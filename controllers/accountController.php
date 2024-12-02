@@ -1,8 +1,7 @@
 <?php
 include_once "base/baseController.php";
 include_once 'models/ApplicationUser.php';
-include_once 'viewmodels/RegisterViewModel.php';
-include_once 'viewmodels/LoginViewModel.php';
+include_once 'viewmodels/accountViewModels.php';
 
 class AccountController extends BaseController
 {

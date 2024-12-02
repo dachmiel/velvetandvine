@@ -1,6 +1,6 @@
 <?php
 include_once "base/baseController.php";
-include_once "viewModels/admin/manageInventoryViewModel.php";
+include_once "viewModels/adminViewModels.php";
 include_once "models/inventory.php";
 include_once "models/db.php";
 

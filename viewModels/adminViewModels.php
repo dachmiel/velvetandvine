@@ -29,4 +29,8 @@ class AddItemViewModel
     }
 }
 
+class ManageInventoryViewModel
+{
+}
+
 ?>
