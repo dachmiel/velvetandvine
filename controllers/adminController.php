@@ -64,11 +64,11 @@ class AdminController extends BaseController
         //requesting to add to DB
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $name = $_POST['NAME'];
-            $description = $_POST['Description'] ?? null;
-            $price = $_POST['Price'];
-            $stockQuantity = $_POST['StockQuantity'];
-            $categoryID = $_POST['CategoryID'];
+            $addItemViewModel->NAME = $_POST['NAME'];
+            $addItemViewModel->Description = $_POST['Description'] ?? null;
+            $addItemViewModel->Price = $_POST['Price'];
+            $addItemViewModel->StockQuantity = $_POST['StockQuantity'];
+            $addItemViewModel->CategoryID = $_POST['CategoryID'];
 
             //cgeck the data
             if ($addItemViewModel->validate()) {
@@ -80,19 +80,23 @@ class AdminController extends BaseController
                 $statement = $dbContext->prepare($query);
 
                 //BIND to the new thing
-                $statement->bindParam(':name', $name, PDO::PARAM_STR);
-                $statement->bindParam(':description', $description, PDO::PARAM_STR);
-                $statement->bindParam(':price', $price, PDO::PARAM_STR);
-                $statement->bindParam(':stockQuantity', $stockQuantity, PDO::PARAM_INT);
-                $statement->bindParam(':categoryID', $categoryID, PDO::PARAM_INT);
+                $statement->bindParam(':name', $addItemViewModel->NAME, PDO::PARAM_STR);
+                $statement->bindParam(':description', $addItemViewModel->Description, PDO::PARAM_STR);
+                $statement->bindParam(':price', $addItemViewModel->Price, PDO::PARAM_STR);
+                $statement->bindParam(':stockQuantity', $addItemViewModel->StockQuantity, PDO::PARAM_INT);
+                $statement->bindParam(':categoryID', $addItemViewModel->CategoryID, PDO::PARAM_INT);
 
                 //do the query
-                if ($statement->execute()) {
+                try {
+                    $statement->execute();
                     //go back to inventory page
                     header("Location: /velvetandvine/admin/manageinventory");
                     exit;
-                } else {
-                    echo "Error adding product.";
+                } catch (PDOException $e) {
+                    $error = "Database Error: ";
+                    $error .= $e->getMessage();
+                    include('views/error/index.php');
+                    exit();
                 }
             } else {
                 echo "Invalid input.";
