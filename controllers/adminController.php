@@ -25,5 +25,6 @@ class AdminController extends BaseController
         //var_dump($Inventory->products);
 
         $this->view('ManageInventory', ['Inventory' => $Inventory]);
-    }
+    }  
+
 }

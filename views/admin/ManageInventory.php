@@ -3,6 +3,11 @@
         <h2>Manage Inventory</h2>
         <hr />
 
+            <!-- Add Item Button -->
+        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addItemModal">Add Item</button>
+
+
+
         <?php if (!empty($Inventory->products)): ?>
             <!-- Product Table -->
             <table class="table table-bordered">
