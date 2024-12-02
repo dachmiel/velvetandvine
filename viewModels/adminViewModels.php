@@ -16,7 +16,7 @@ class AddItemViewModel
             $this->name_error = "Name is required.";
             $this->error = true;
         }
-        if (!is_numeric($this->Price) || $this->Price <= 0) {
+        if (!is_numeric($this->Price) || $this->Price < 0) {
             $this->error = true;
         }
         if (!is_numeric($this->StockQuantity) || $this->StockQuantity < 0) {
@@ -29,8 +29,4 @@ class AddItemViewModel
     }
 }
 
-class ManageInventoryViewModel
-{
-}
-
-?>
+class ManageInventoryViewModel {}
