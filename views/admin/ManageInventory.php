@@ -33,15 +33,15 @@
                                 <input type="number" class="form-control" id="stockQuantity" name="StockQuantity" required>
                             </div>
                             <div class="mb-3">
-                        <label for="categoryID" class="form-label">Category</label>
-                        <select class="form-select" id="categoryID" name="CategoryID" required>
-                            <option value="" disabled selected>Select a category</option>
-                            <?php foreach ($product_categories as $category): ?>
-                                <option value="<?= $category['CategoryID'] ?>">
-                                    <?= htmlspecialchars($category['NAME']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                            <label for="categoryID" class="form-label">Category</label>
+                            <select class="form-select" id="categoryID" name="CategoryID" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <?php foreach ($categories as $category): ?>
+                                    <option value="<?= $category['CategoryID'] ?>">
+                                        <?= htmlspecialchars($category['CategoryName']) ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Add Item</button>
                         </form>

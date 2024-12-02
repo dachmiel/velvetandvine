@@ -35,7 +35,18 @@ class AdminController extends BaseController
         $Inventory->products = $statement->fetchAll(PDO::FETCH_ASSOC);
         //var_dump($Inventory->products);
 
-        $this->view('ManageInventory', ['Inventory' => $Inventory]);
+        $queryCategories = "
+        SELECT CategoryID, NAME AS CategoryName 
+        FROM product_categories
+        ORDER BY NAME ASC";
+    
+    $statementCategories = $dbContext->query($queryCategories);
+    
+    //get the categories for the dropdfown
+    $categories = $statementCategories->fetchAll(PDO::FETCH_ASSOC);
+
+    // Pass products and categories to the view
+    $this->view('ManageInventory', ['Inventory' => $Inventory, 'categories' => $categories]);
     }
 
     public function addItem() {
