@@ -1,6 +1,6 @@
 <?php
 include_once "base/baseController.php";  // Adjust the path as needed
-include_once "viewModels/CatalogViewModel.php";
+include_once "viewModels/catalogViewModels.php";
 
 
 class CatalogController extends BaseController
