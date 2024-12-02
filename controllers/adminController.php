@@ -17,7 +17,18 @@ class AdminController extends BaseController
         $dbContext = getDatabaseConnection();
 
         //sql query for the products
-        $query = "SELECT * FROM products";
+        $query = "
+        SELECT 
+            p.ProductID, 
+            p.NAME, 
+            p.Description, 
+            p.Price, 
+            p.StockQuantity, 
+            c.NAME AS CategoryName 
+        FROM products p
+        LEFT JOIN product_categories c ON p.CategoryID = c.CategoryID
+        ORDER BY p.CategoryID ASC";
+
         $statement = $dbContext->query($query);
 
         //fetch them all

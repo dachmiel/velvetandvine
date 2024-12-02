@@ -22,7 +22,7 @@
                             <td><?= htmlspecialchars($product['Description']) ?></td>
                             <td>$<?= number_format($product['Price'], 2) ?></td>
                             <td><?= $product['StockQuantity'] ?></td>
-                            <td><?= $product['CategoryID'] ?></td>
+                            <td><?= htmlspecialchars($product['CategoryName']) ?></td>
                             </td>
                         </tr>
                     <?php endforeach; ?>
