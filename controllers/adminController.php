@@ -103,4 +103,12 @@ class AdminController extends BaseController
             }
         }
     }
+
+    public function deleteItem()
+    {
+        if (!$this->isAuthenticated() || !$this->isAdmin()) {
+            header("Location: /velvetandvine");
+            exit;
+        }
+    }
 }
