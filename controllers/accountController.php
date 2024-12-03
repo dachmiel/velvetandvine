@@ -5,12 +5,12 @@ include_once 'viewmodels/accountViewModels.php';
 
 class AccountController extends BaseController
 {
-    public function index($id = null)
+    public function Index($id = null)
     {
         $this->view('index');
     }
 
-    public function register()
+    public function Register()
     {
 
         // if user is logged in, redirect to default page
@@ -79,7 +79,7 @@ class AccountController extends BaseController
     }
 
 
-    public function login($id = null)
+    public function Login($id = null)
     {
         // if user is logged in, redirect to default page
         if ($this->isAuthenticated()) {
@@ -129,5 +129,17 @@ class AccountController extends BaseController
         // unsuccessful login
         // return view, passing in the viewmodel with the form data
         $this->view('login', ['model' => $LoginViewModel]);
+    }
+
+    public function LogOut()
+    {
+
+        session_start();
+
+        $_SESSION = array();
+
+        session_destroy();
+
+        header("location: /velvetandvine");
     }
 }

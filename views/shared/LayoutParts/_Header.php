@@ -35,7 +35,7 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="/velvetandvine/views/account/logout.php">Logout</a></li>
+                <li><a class="dropdown-item" href="/velvetandvine/account/logout">Logout</a></li>
               </ul>
             </li>
           </ul>
@@ -52,7 +52,7 @@
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="/velvetandvine/views/account/logout.php">Logout</a></li>
+                <li><a class="dropdown-item" href="/velvetandvine/account/logout">Logout</a></li>
               </ul>
             </li>
           </ul>
