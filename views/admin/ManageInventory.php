@@ -75,7 +75,7 @@
                             <td><?= htmlspecialchars($product['CategoryName']) ?></td>
                             <td>
                                 <!-- Delete Form -->
-                                <form method="POST" action="/admin/deleteItem" style="display:inline;">
+                                <form method="POST" action="/velvetandvine/admin/deleteItem" style="display:inline;">
                                     <input type="hidden" name="ProductID" value="<?= $product['ProductID'] ?>">
                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
                                         Delete
