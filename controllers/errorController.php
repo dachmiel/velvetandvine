@@ -4,8 +4,8 @@ include_once "base/baseController.php";
 class ErrorController extends BaseController
 {
 
-    public function Show404()
+    public function HttpNotFound()
     {
-        $this->view('404');
+        $this->view('HttpNotFound');
     }
 }

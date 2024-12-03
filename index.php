@@ -16,7 +16,7 @@ if (file_exists($controllerFile)) {
 } else {
     // If controller file doesn't exist, set a 404 error and load the error page
     http_response_code(404); // Set the HTTP response code to 404
-    $pageContent = 'Views/Error/404.php';
+    $pageContent = 'Views/Error/HttpNotFound.php';
     include "Views/Shared/_Layout.php";
     exit;
 }
@@ -30,14 +30,14 @@ if (class_exists($controllerClass)) {
     } else {
         // If action doesn't exist, set a 404 error and load the error page
         http_response_code(404); // Set the HTTP response code to 404
-        $pageContent = 'Views/Error/404.php';
+        $pageContent = 'Views/Error/HttpNotFound.php';
         include "Views/Shared/_Layout.php";
         exit;
     }
 } else {
     // If controller class doesn't exist, set a 404 error and load the error page
     http_response_code(404); // Set the HTTP response code to 404
-    $pageContent = 'Views/Error/404.php';
+    $pageContent = 'Views/Error/HttpNotFound.php';
     include "Views/Shared/_Layout.php";
     exit;
 }

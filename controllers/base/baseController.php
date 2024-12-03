@@ -69,7 +69,7 @@ class BaseController
         // Check if the view file exists
         if (!file_exists($viewPath)) {
             // If the view file doesn't exist, render a 404 error page
-            $viewPath = 'Views/Error/404.php';
+            $viewPath = 'Views/Error/HttpNotFound.php';
         }
 
         // Extract the data array to variables
