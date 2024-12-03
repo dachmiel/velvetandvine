@@ -1,9 +1,15 @@
 <?php
+include_once "base/baseController.php";
 
-class ErrorController
+class ErrorController extends BaseController
 {
     public function index($id = null)
     {
-        include "Views/error/index.php";
+        $this->view("Views/error/index.php");
+    }
+
+    public function show404()
+    {
+        $this->view("views/error/404.php");
     }
 }
