@@ -1,6 +1,6 @@
 <?php
 
-function getDatabaseConnection()
+function GetDatabaseConnection()
 {
     $dsn = 'mysql:host=localhost;dbname=Velvet&VineDB';
     $username = 'root';

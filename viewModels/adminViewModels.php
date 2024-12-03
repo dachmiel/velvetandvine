@@ -10,7 +10,7 @@ class AddItemViewModel
     public $error = false;
     public $name_error;
 
-    public function validate()
+    public function Validate()
     {
         if (empty($this->NAME)) {
             $this->name_error = "Name is required.";
