@@ -38,7 +38,7 @@ class RegisterViewModel
 
     public $error = false;
 
-    public function validate()
+    public function Validate()
     {
         // Perform validation checks and set error messages if needed
 

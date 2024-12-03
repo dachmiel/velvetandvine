@@ -1,9 +1,11 @@
 <?php
+include_once "base/baseController.php";
 
-class ErrorController
+class ErrorController extends BaseController
 {
-    public function index($id = null)
+
+    public function HttpNotFound()
     {
-        include "Views/error/index.php";
+        $this->view('HttpNotFound');
     }
 }

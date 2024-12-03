@@ -13,7 +13,7 @@ class BaseController
     }
 
     // Check if the user is authenticated
-    protected function checkAuthentication()
+    protected function CheckAuthentication()
     {
         if (isset($_SESSION["userid"])) {
             $this->authenticated = true;
@@ -25,7 +25,7 @@ class BaseController
      *
      * @return bool
      */
-    public function isAdmin()
+    public function IsAdmin()
     {
         if ($_SESSION["user_type"] == "Admin") {
             return true;
@@ -37,7 +37,7 @@ class BaseController
      *
      * @return bool
      */
-    public function isAuthenticated()
+    public function IsAuthenticated()
     {
         return $this->authenticated;
     }
@@ -47,7 +47,7 @@ class BaseController
      *
      * @return mixed|null
      */
-    public function getAuthenticatedUser()
+    public function GetAuthenticatedUser()
     {
         return $this->user;
     }
@@ -58,7 +58,7 @@ class BaseController
      * @param string $action The name of the action to render
      * @param array $data Optional data to pass to the view
      */
-    public function view($action, $data = [])
+    public function View($action, $data = [])
     {
         // Get the controller name from the class name
         $controllerName = str_replace('Controller', '', get_class($this));  // e.g. "catalogcontroller"
@@ -69,7 +69,7 @@ class BaseController
         // Check if the view file exists
         if (!file_exists($viewPath)) {
             // If the view file doesn't exist, render a 404 error page
-            $viewPath = 'Views/Error/404.php';
+            $viewPath = 'Views/Error/HttpNotFound.php';
         }
 
         // Extract the data array to variables

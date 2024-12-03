@@ -5,7 +5,7 @@ include_once "viewModels/catalogViewModels.php";
 
 class CatalogController extends BaseController
 {
-    public function index($id = null)
+    public function Index($id = null)
     {
         // Connect to the DB
         include "models/db.php";
@@ -46,7 +46,7 @@ class CatalogController extends BaseController
     }
 
 
-    public function product()
+    public function Product()
     {
         include "models/db.php";
         $ProductViewModel = new ProductViewModel();
@@ -69,11 +69,11 @@ class CatalogController extends BaseController
         }
         $this->view('product', ['model' => $ProductViewModel]);
     }
-    public function new($id = null)
+    public function New($id = null)
     {
         $this->view('new');
     }
-    public function tops($id = null)
+    public function Tops($id = null)
     {
         // connect to the DB
         include "models/db.php";
@@ -109,7 +109,7 @@ class CatalogController extends BaseController
         }
         $this->view('tops', ['model' => $TopsViewModel]);
     }
-    public function dresses($id = null)
+    public function Dresses($id = null)
     {
         // connect to the DB
         include "models/db.php";
@@ -145,7 +145,7 @@ class CatalogController extends BaseController
         }
         $this->view('dresses', ['model' => $DressesViewModel]);
     }
-    public function bottoms($id = null)
+    public function Bottoms($id = null)
     {
         // connect to the DB
         include "models/db.php";
@@ -181,7 +181,7 @@ class CatalogController extends BaseController
         }
         $this->view('bottoms', ['model' => $BottomsViewModel]);
     }
-    public function denims($id = null)
+    public function Denims($id = null)
     {
         // connect to the DB
         include "models/db.php";
@@ -217,7 +217,7 @@ class CatalogController extends BaseController
         }
         $this->view('denims', ['model' => $DenimsViewModel]);
     }
-    public function accessories($id = null)
+    public function Accessories($id = null)
     {
         // connect to the DB
         include "models/db.php";
@@ -253,7 +253,7 @@ class CatalogController extends BaseController
         }
         $this->view('accessories', ['model' => $AccessoriesViewModel]);
     }
-    public function jackets($id = null)
+    public function Jackets($id = null)
     {
         // connect to the DB
         include "models/db.php";
@@ -289,7 +289,7 @@ class CatalogController extends BaseController
         }
         $this->view('jackets', ['model' => $JacketsViewModel]);
     }
-    public function sale($id = null)
+    public function Sale($id = null)
     {
         $this->view('sale');
     }

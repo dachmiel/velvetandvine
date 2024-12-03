@@ -50,7 +50,7 @@ class AdminController extends BaseController
         $this->view('ManageInventory', ['Inventory' => $Inventory, 'categories' => $categories]);
     }
 
-    public function addItem()
+    public function AddItem()
     {
 
         //if NOT admin the BEGONE
@@ -104,7 +104,7 @@ class AdminController extends BaseController
         }
     }
 
-    public function deleteItem()
+    public function DeleteItem()
     {
         if (!$this->isAuthenticated() || !$this->isAdmin()) {
             header("Location: /velvetandvine");
