@@ -110,5 +110,40 @@ class AdminController extends BaseController
             header("Location: /velvetandvine");
             exit;
         }
+
+        //request to DB
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $productID = $_POST['ProductID'];
+            //make sure is real product
+            if (!empty($productID) && is_numeric($productID)) {
+                //connect to DB
+                $dbContext = getDatabaseConnection();
+
+                //query statement
+                $query = "DELETE FROM products WHERE ProductID = :productID";
+                $statement = $dbContext->prepare($query);
+
+                //BIND(ing of issac)
+                $statement->bindParam(':productID', $productID, PDO::PARAM_INT);
+
+                //try to execute
+                try {
+                    $statement->execute();
+                    //back to inventory page
+                    header("Location: /velvetandvine/admin/manageinventory");
+                    exit;
+                } catch (PDOException $e) {
+                    $error = "Database Error: ";
+                    $error .= $e->getMessage();
+                    include('views/error/index.php');
+                    exit();
+                }
+            } else {
+                echo "Invalid ProductID.";
+            }
+        } else {
+            header("Location: /velvetandvine/admin/manageinventory");
+            exit;
+        }
     }
 }
