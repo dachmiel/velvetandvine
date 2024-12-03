@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Deny all requests to this directory
+    RewriteRule ^.*$ - [R=404,L]
+</IfModule>

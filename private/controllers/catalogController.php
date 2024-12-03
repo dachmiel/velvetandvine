@@ -2,7 +2,6 @@
 include_once "base/baseController.php";  // Adjust the path as needed
 include_once "viewModels/catalogViewModels.php";
 
-
 class CatalogController extends BaseController
 {
     public function Index($id = null)
