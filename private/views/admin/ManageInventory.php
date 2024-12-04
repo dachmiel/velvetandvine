@@ -71,7 +71,7 @@
                             <td><?= htmlspecialchars($product['NAME']) ?></td>
                             <td><?= htmlspecialchars($product['Description']) ?></td>
                             <td>$<?= number_format($product['Price'], 2) ?></td>
-                            <td><?= $product['StockQuantity'] ?></td>
+                            <td><?= number_format($product['StockQuantity']) ?></td>
                             <td><?= htmlspecialchars($product['CategoryName']) ?></td>
                             <td>
                                 <!-- Edit Button -->
@@ -131,7 +131,6 @@
                                     </div>
                                 </div>
                             </div>
-                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
