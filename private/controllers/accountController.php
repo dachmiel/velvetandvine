@@ -1,7 +1,8 @@
 <?php
 include_once "base/baseController.php";
-include_once 'models/ApplicationUser.php';
-include_once 'viewmodels/accountViewModels.php';
+include_once __DIR__ . '/../models/ApplicationUser.php';
+include_once __DIR__ . '/../viewmodels/accountViewModels.php';
+include_once __DIR__ . "/../models/db.php";
 
 class AccountController extends BaseController
 {
@@ -95,7 +96,6 @@ class AccountController extends BaseController
             if ($LoginViewModel->validate()) {
 
                 // connect to the DB
-                include "models/db.php";
                 $dbContext = getDatabaseConnection();
 
                 // Read user from the database

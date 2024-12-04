@@ -1,13 +1,13 @@
 <?php
 include_once "base/baseController.php";  // Adjust the path as needed
-include_once "viewModels/catalogViewModels.php";
+include_once __DIR__ . "/../viewModels/catalogViewModels.php";
+include_once __DIR__ . "/../models/db.php";
 
 class CatalogController extends BaseController
 {
     public function Index($id = null)
     {
         // Connect to the DB
-        include "models/db.php";
         $dbContext = getDatabaseConnection();
 
         // Query to fetch all products
@@ -47,7 +47,6 @@ class CatalogController extends BaseController
 
     public function Product()
     {
-        include "models/db.php";
         $ProductViewModel = new ProductViewModel();
         $dbContext = getDatabaseConnection();
 
@@ -75,7 +74,6 @@ class CatalogController extends BaseController
     public function Tops($id = null)
     {
         // connect to the DB
-        include "models/db.php";
         $TopsViewModel = new TopsViewModel();
         //connect
         $dbContext = getDatabaseConnection();
@@ -111,7 +109,6 @@ class CatalogController extends BaseController
     public function Dresses($id = null)
     {
         // connect to the DB
-        include "models/db.php";
         $DressesViewModel = new DressesViewModel();
         //connect
         $dbContext = getDatabaseConnection();
@@ -147,7 +144,6 @@ class CatalogController extends BaseController
     public function Bottoms($id = null)
     {
         // connect to the DB
-        include "models/db.php";
         $BottomsViewModel = new BottomsViewModel();
         //connect
         $dbContext = getDatabaseConnection();
@@ -183,7 +179,6 @@ class CatalogController extends BaseController
     public function Denims($id = null)
     {
         // connect to the DB
-        include "models/db.php";
         $DenimsViewModel = new DenimsViewModel();
         //connect
         $dbContext = getDatabaseConnection();
@@ -219,7 +214,6 @@ class CatalogController extends BaseController
     public function Accessories($id = null)
     {
         // connect to the DB
-        include "models/db.php";
         $AccessoriesViewModel = new AccessoriesViewModel();
         //connect
         $dbContext = getDatabaseConnection();
@@ -255,7 +249,6 @@ class CatalogController extends BaseController
     public function Jackets($id = null)
     {
         // connect to the DB
-        include "models/db.php";
         $JacketsViewModel = new JacketsViewModel();
         //connect
         $dbContext = getDatabaseConnection();
