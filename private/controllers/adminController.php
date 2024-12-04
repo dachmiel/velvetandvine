@@ -146,4 +146,64 @@ class AdminController extends BaseController
             exit;
         }
     }
+
+    public function editItem()
+    {
+        //if not signed in or admin then LEAVE
+        if (!$this->isAuthenticated() || !$this->isAdmin()) {
+            header("Location: /velvetandvine");
+            exit;
+        }
+
+        //RERQUEST
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $productID = $_POST['ProductID'];
+            $name = $_POST['NAME'];
+            $description = $_POST['Description'] ?? null;
+            $price = $_POST['Price'];
+            $stockQuantity = $_POST['StockQuantity'];
+            $categoryID = $_POST['CategoryID'];
+
+            //teehee
+            if (
+                !empty($productID) &&
+                !empty($name) &&
+                is_numeric($price) &&
+                is_numeric($stockQuantity) &&
+                is_numeric($categoryID)
+            ) {
+                //connect
+                $dbContext = getDatabaseConnection();
+
+                //UPDATE query
+                $query = "UPDATE products 
+                          SET NAME = :name, Description = :description, Price = :price, StockQuantity = :stockQuantity, CategoryID = :categoryID
+                          WHERE ProductID = :productID";
+                $statement = $dbContext->prepare($query);
+
+                $statement->bindParam(':productID', $productID, PDO::PARAM_INT);
+                $statement->bindParam(':name', $name, PDO::PARAM_STR);
+                $statement->bindParam(':description', $description, PDO::PARAM_STR);
+                $statement->bindParam(':price', $price, PDO::PARAM_STR);
+                $statement->bindParam(':stockQuantity', $stockQuantity, PDO::PARAM_INT);
+                $statement->bindParam(':categoryID', $categoryID, PDO::PARAM_INT);
+
+                //same as previous methods
+                try {
+                    $statement->execute();
+                    header("Location: /velvetandvine/admin/manageinventory");
+                    exit;
+                } catch (PDOException $e) {
+                    $error = "Database Error: " . $e->getMessage();
+                    include('views/error/index.php');
+                    exit();
+                }
+            } else {
+                echo "Invalid input.";
+            }
+        } else {
+            header("Location: /velvetandvine/admin/manageinventory");
+            exit();
+        }
+    }
 }
