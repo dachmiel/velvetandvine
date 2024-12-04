@@ -116,16 +116,22 @@
                                                         <label for="stockQuantity<?= $product['ProductID'] ?>" class="form-label">Stock Quantity</label>
                                                         <input type="number" class="form-control" id="stockQuantity<?= $product['ProductID'] ?>" name="StockQuantity" value="<?= $product['StockQuantity'] ?>" required>
                                                     </div>
+                                                    <!-- To make it so the dropdown has the current category as the default instead of "select a category" -->
                                                     <div class="mb-3">
-                                                        <label for="categoryID" class="form-label">Category</label>
-                                                        <select class="form-select" id="categoryID" name="CategoryID" required>
-                                                            <option value="" disabled selected>Select a category</option>
-                                                            <?php foreach ($categories as $category): ?>
-                                                                <option value="<?= $category['CategoryID'] ?>">
-                                                                    <?= htmlspecialchars($category['CategoryName']) ?>
-                                                                </option>
-                                                            <?php endforeach; ?>
+                                                        <label for="categoryID<?= $product['ProductID'] ?>" class="form-label">Category</label>
+                                                        <select class="form-select" id="categoryID<?= $product['ProductID'] ?>" name="CategoryID" required>
+                                                            <?php if (!empty($categories)): ?>
+                                                                <?php foreach ($categories as $category): ?>
+                                                                    <option value="<?= htmlspecialchars($category['CategoryID']) ?>"
+                                                                        <?= isset($product['CategoryID']) && $category['CategoryID'] == $product['CategoryID'] ? 'selected' : '' ?>>
+                                                                        <?= htmlspecialchars($category['CategoryName'] ?? 'Unknown Category') ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
+                                                            <?php else: ?>
+                                                                <option value="" disabled>No categories available</option>
+                                                            <?php endif; ?>
                                                         </select>
+
                                                     </div>
                                                     <button type="submit" class="btn btn-success">Save Changes</button>
                                                 </form>
