@@ -74,6 +74,11 @@
                             <td><?= $product['StockQuantity'] ?></td>
                             <td><?= htmlspecialchars($product['CategoryName']) ?></td>
                             <td>
+                                <!-- Edit Button -->
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editItemModal<?= $product['ProductID'] ?>">
+                                    Edit
+                                </button>
+                            <td>
                                 <!-- Delete Form -->
                                 <form method="POST" action="/velvetandvine/admin/deleteItem" style="display:inline;">
                                     <input type="hidden" name="ProductID" value="<?= $product['ProductID'] ?>">
@@ -81,12 +86,6 @@
                                         Delete
                                     </button>
                                 </form>
-
-                            <td>
-                                <!-- Edit Button -->
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editItemModal<?= $product['ProductID'] ?>">
-                                    Edit
-                                </button>
                             </td>
                             <!-- Edit Item Modal -->
                             <div class="modal fade" id="editItemModal<?= $product['ProductID'] ?>" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
