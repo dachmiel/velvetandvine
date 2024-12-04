@@ -1,8 +1,8 @@
 <?php
 include_once "base/baseController.php";
-include_once __DIR__ . "/../viewModels/adminViewModels.php";
-include_once __DIR__ . "/../models/inventory.php";
-include_once __DIR__ . "/../models/db.php";
+include_once "viewModels/adminViewModels.php";
+include_once "models/inventory.php";
+include_once "models/db.php";
 
 class AdminController extends BaseController
 {

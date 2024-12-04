@@ -64,12 +64,12 @@ class BaseController
         $controllerName = str_replace('Controller', '', get_class($this));  // e.g. "catalogcontroller"
 
         // Construct the path to the view file
-        $viewPath = __DIR__ . '/../../Views/' . $controllerName . '/' . $action . '.php'; // e.g. 'Views/catalog/index.php'
+        $viewPath = 'Views/' . $controllerName . '/' . $action . '.php'; // e.g. 'Views/catalog/index.php'
 
         // Check if the view file exists
         if (!file_exists($viewPath)) {
             // If the view file doesn't exist, render a 404 error page
-            $viewPath = __DIR__ . '/../../Views/Error/HttpNotFound.php';
+            $viewPath = 'Views/Error/HttpNotFound.php';
         }
 
         // Extract the data array to variables
@@ -81,6 +81,6 @@ class BaseController
         $pageContent = $viewPath;
 
         // Include the layout file and pass the content inside the layout
-        include_once __DIR__ . '/../../Views/Shared/_Layout.php';
+        include "Views/Shared/_Layout.php"; // _Layout.php will include $pageContent
     }
 }

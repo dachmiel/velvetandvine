@@ -10,14 +10,14 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'index'; // default action 
 $id = isset($_GET['id']) ? $_GET['id'] : null; // default id is null
 
 // map the controller and action to the appropriate file
-$controllerFile = "private/controllers/{$controller}Controller.php"; // e.g. controllers/catalogController.php
+$controllerFile = "controllers/{$controller}Controller.php"; // e.g. controllers/catalogController.php
 if (file_exists($controllerFile)) {
     include $controllerFile; // include the controller file
 } else {
     // If controller file doesn't exist, set a 404 error and load the error page
     http_response_code(404); // Set the HTTP response code to 404
-    $pageContent = 'private/Views/Error/HttpNotFound.php';
-    include "private/Views/Shared/_Layout.php";
+    $pageContent = 'Views/Error/HttpNotFound.php';
+    include "Views/Shared/_Layout.php";
     exit;
 }
 
@@ -30,14 +30,14 @@ if (class_exists($controllerClass)) {
     } else {
         // If action doesn't exist, set a 404 error and load the error page
         http_response_code(404); // Set the HTTP response code to 404
-        $pageContent = 'private/Views/Error/HttpNotFound.php';
-        include "private/Views/Shared/_Layout.php";
+        $pageContent = 'Views/Error/HttpNotFound.php';
+        include "Views/Shared/_Layout.php";
         exit;
     }
 } else {
     // If controller class doesn't exist, set a 404 error and load the error page
     http_response_code(404); // Set the HTTP response code to 404
-    $pageContent = 'private/Views/Error/HttpNotFound.php';
-    include "private/Views/Shared/_Layout.php";
+    $pageContent = 'Views/Error/HttpNotFound.php';
+    include "Views/Shared/_Layout.php";
     exit;
 }
