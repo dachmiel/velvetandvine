@@ -81,6 +81,14 @@
                                         Delete
                                     </button>
                                 </form>
+                            <td>
+                                <!-- Edit Button -->
+                                <button
+                                    class="btn btn-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editItemModal<?= $product['ProductID'] ?>">
+                                    Edit
+                                </button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
