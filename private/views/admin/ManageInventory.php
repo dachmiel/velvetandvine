@@ -89,6 +89,50 @@
                                     data-bs-target="#editItemModal<?= $product['ProductID'] ?>">
                                     Edit
                                 </button>
+                                <!-- Edit Item Modal -->
+                                <div class="modal fade" id="editItemModal<?= $product['ProductID'] ?>" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editItemModalLabel">Edit Item: <?= htmlspecialchars($product['NAME']) ?></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="/velvetandvine/admin/editItem">
+                                                    <input type="hidden" name="ProductID" value="<?= $product['ProductID'] ?>">
+                                                    <div class="mb-3">
+                                                        <label for="name<?= $product['ProductID'] ?>" class="form-label">Name</label>
+                                                        <input type="text" class="form-control" id="name<?= $product['ProductID'] ?>" name="NAME" value="<?= htmlspecialchars($product['NAME']) ?>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="description<?= $product['ProductID'] ?>" class="form-label">Description</label>
+                                                        <textarea class="form-control" id="description<?= $product['ProductID'] ?>" name="Description"><?= htmlspecialchars($product['Description']) ?></textarea>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="price<?= $product['ProductID'] ?>" class="form-label">Price</label>
+                                                        <input type="number" step="0.01" class="form-control" id="price<?= $product['ProductID'] ?>" name="Price" value="<?= $product['Price'] ?>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="stockQuantity<?= $product['ProductID'] ?>" class="form-label">Stock Quantity</label>
+                                                        <input type="number" class="form-control" id="stockQuantity<?= $product['ProductID'] ?>" name="StockQuantity" value="<?= $product['StockQuantity'] ?>" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="categoryID" class="form-label">Category</label>
+                                                        <select class="form-select" id="categoryID" name="CategoryID" required>
+                                                            <option value="" disabled selected>Select a category</option>
+                                                            <?php foreach ($categories as $category): ?>
+                                                                <option value="<?= $category['CategoryID'] ?>">
+                                                                    <?= htmlspecialchars($category['CategoryName']) ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-success">Save Changes</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
