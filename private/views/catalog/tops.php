@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <!-- Loop through the tops array in the TopsViewModel -->
-            <?php foreach ($model->tops as $index => $top): ?>
+            <?php foreach ($Model->tops as $index => $top): ?>
                 <div class="col-md-4 col-sm-6">
                     <div class="top-card" style="padding: 20px; margin-bottom: 20px; text-align: center;">
                         <a href="/velvetandvine/catalog/product?pid=<?php echo urlencode($top['ProductID']); ?>" style="text-decoration: none; color: inherit;">
