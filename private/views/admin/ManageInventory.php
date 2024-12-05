@@ -36,7 +36,7 @@
                                 <label for="categoryID" class="form-label">Category</label>
                                 <select class="form-select" id="categoryID" name="CategoryID" required>
                                     <option value="" disabled selected>Select a category</option>
-                                    <?php foreach ($categories as $category): ?>
+                                    <?php foreach ($Model->categories as $category): ?>
                                         <option value="<?= $category['CategoryID'] ?>">
                                             <?= htmlspecialchars($category['CategoryName']) ?>
                                         </option>
@@ -52,7 +52,7 @@
 
 
 
-        <?php if (!empty($Inventory->products)): ?>
+        <?php if (!empty($Model->products)): ?>
             <!-- Product Table -->
             <table class="table table-bordered">
                 <thead>
@@ -66,7 +66,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($Inventory->products as $product): ?>
+                    <?php foreach ($Model->products as $product): ?>
                         <tr>
                             <td><?= htmlspecialchars($product['NAME']) ?></td>
                             <td><?= htmlspecialchars($product['Description']) ?></td>

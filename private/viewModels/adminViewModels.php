@@ -29,4 +29,15 @@ class AddItemViewModel
     }
 }
 
-class ManageInventoryViewModel {}
+class ManageInventoryViewModel
+{
+
+    public $products;
+    public $categories;
+
+    public function __construct(array $products, array $categories)
+    {
+        $this->products = $products;
+        $this->categories = $categories;
+    }
+}

@@ -13,12 +13,11 @@ class AdminController extends BaseController
             exit;
         }
 
-        $Inventory = new Inventory();
         //connect
         $dbContext = getDatabaseConnection();
 
         //sql query for the products
-        $query = "
+        $statement = $dbContext->query("
         SELECT 
             p.ProductID, 
             p.NAME, 
@@ -28,26 +27,21 @@ class AdminController extends BaseController
             c.NAME AS CategoryName 
         FROM products p
         LEFT JOIN product_categories c ON p.CategoryID = c.CategoryID
-        ORDER BY p.CategoryID ASC";
-
-        $statement = $dbContext->query($query);
+        ORDER BY p.CategoryID ASC");
 
         //fetch them all
-        $Inventory->products = $statement->fetchAll(PDO::FETCH_ASSOC);
-        //var_dump($Inventory->products);
+        $products = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        $queryCategories = "
+        $statementCategories = $dbContext->query("
         SELECT CategoryID, NAME AS CategoryName 
         FROM product_categories
-        ORDER BY NAME ASC";
-
-        $statementCategories = $dbContext->query($queryCategories);
+        ORDER BY NAME ASC");
 
         //get the categories for the dropdfown
         $categories = $statementCategories->fetchAll(PDO::FETCH_ASSOC);
 
         // Pass products and categories to the view
-        $this->view('ManageInventory', ['Inventory' => $Inventory, 'categories' => $categories]);
+        $this->view(new ManageInventoryViewModel($products, $categories));
     }
 
     public function AddItem()
