@@ -52,35 +52,33 @@ class BaseController
         return $this->user;
     }
 
-    /**
-     * Render a view.
-     *
-     * @param string $action The name of the action to render
-     * @param array $data Optional data to pass to the view
-     */
-    public function View($action, $data = [])
+
+    public function View($Model)
     {
+        // Ensure that the $model is an object
+        if (!is_object($Model)) {
+            // Optionally throw an exception or handle the error if $model is not an object
+            throw new InvalidArgumentException('Expected an object, but received something else.');
+        }
+
         // Get the controller name from the class name
-        $controllerName = str_replace('Controller', '', get_class($this));  // e.g. "catalogcontroller"
+        $controllerName = str_replace('Controller', '', get_class($this));  // e.g., "ProductController"
+
+        // Infer the action name from the method where View() is called
+        $action = debug_backtrace()[1]['function']; // This gets the calling function name
 
         // Construct the path to the view file
-        $viewPath = __DIR__ . '/../../Views/' . $controllerName . '/' . $action . '.php'; // e.g. 'Views/catalog/index.php'
+        $viewPath = __DIR__ . '/../../Views/' . $controllerName . '/' . $action . '.php';
 
         // Check if the view file exists
         if (!file_exists($viewPath)) {
-            // If the view file doesn't exist, render a 404 error page
             $viewPath = __DIR__ . '/../../Views/Error/HttpNotFound.php';
-        }
-
-        // Extract the data array to variables
-        if (!empty($data)) {
-            extract($data); // Converts the array keys to variables
         }
 
         // Set the page content for the layout
         $pageContent = $viewPath;
 
-        // Include the layout file and pass the content inside the layout
+        // Include the layout file
         include_once __DIR__ . '/../../Views/Shared/_Layout.php';
     }
 }
