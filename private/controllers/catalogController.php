@@ -71,40 +71,21 @@ class CatalogController extends BaseController
     {
         $this->view('new');
     }
-    public function Tops($id = null)
+    public function Tops()
     {
         // connect to the DB
-        $TopsViewModel = new TopsViewModel();
-        //connect
         $dbContext = getDatabaseConnection();
 
         //sql query for the products
-        $query = "SELECT * FROM products WHERE categoryid = :categoryid";
-        $statement = $dbContext->prepare($query);
-
-        $statement->bindParam(':categoryid', $categoryid, PDO::PARAM_INT);
-
         $categoryid = 2;
-
+        $statement = $dbContext->prepare("SELECT * FROM products WHERE categoryid = :categoryid");
+        $statement->bindParam(':categoryid', $categoryid, PDO::PARAM_INT);
         $statement->execute();
 
         //fetch them all
         $tops = $statement->fetchAll(PDO::FETCH_ASSOC);
-        // Check if any products were returned
-        if ($tops) {
-            foreach ($tops as $top) {
-                // Output or process each product here
-                $TopViewModel = new TopViewModel();
-                $TopViewModel->productID = $top['ProductID'];
-                $TopViewModel->name = $top['NAME'];
-                $TopViewModel->description = $top['Description'];
-                $TopViewModel->price = $top['Price'];
-                $TopsViewModel->tops[] = $TopViewModel;
-            }
-        } else {
-            echo "No products found in this category.";
-        }
-        $this->view('tops', ['model' => $TopsViewModel]);
+
+        $this->view(new TopsViewModel($tops));
     }
     public function Dresses($id = null)
     {

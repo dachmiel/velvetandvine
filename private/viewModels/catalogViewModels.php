@@ -74,7 +74,14 @@ class ProductViewModel
 }
 class TopsViewModel
 {
-    public $tops = [];
+    /** @var TopViewModel[] */
+    public $tops;
+
+    // Constructor to initialize $tops
+    public function __construct(array $tops)
+    {
+        $this->tops = $tops;  // Set the passed tops array to the class property
+    }
 }
 class TopViewModel
 {
