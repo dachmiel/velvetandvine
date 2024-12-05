@@ -2,7 +2,7 @@
     <div class="container mt-4">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <img src="/velvetandvine/images/products/product_<?php echo $model->productID ?>.jpg" alt="<?php echo $model->name; ?>" style="width: 100%; height: 100%;">
+                <img src="/velvetandvine/public/images/products/product_<?php echo $model->productID ?>.jpg" alt="<?php echo $model->name; ?>" style="width: 100%; height: 100%;">
             </div>
             <div class="col-md-6">
                 <h1><?php echo $model->name; ?></h1>

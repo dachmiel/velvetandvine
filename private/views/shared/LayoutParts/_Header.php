@@ -12,7 +12,7 @@
       <!-- Center: Logo (Absolutely Centered) -->
       <div class="logo-container position-absolute top-50 start-50 translate-middle">
         <a class="navbar-brand" href="/velvetandvine">
-          <img src="/velvetandvine/images/logo.png"
+          <img src="/velvetandvine/public/images/logo.png"
             alt="Velvet&Vine Logo"
             style="max-width: 200px; height: auto;" />
         </a>
