@@ -1,3 +1,10 @@
+<!-- 
+* File Name: register.php
+* Purpose: This file provides the functionalities for a user to register on the website.
+* The user enters their First Name, Last Name, Email, Password, and cofirms their password in Confirm Password. 
+* An Error message is displayed if validation of the password fails. 
+Version: 1.0
+-->
 <main>
     <div class="container py-4">
         <div class="row">
