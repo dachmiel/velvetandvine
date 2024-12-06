@@ -1,4 +1,11 @@
 <?php
+/**
+ * File Name: catalogViewModels.php
+ * Purpose: This file contains the ViewModel classes for all of the website categories. 
+ * Each ViewModel holds item details like product ID, name, description and price. 
+ * Version: 1.0
+ * 
+ */
 
 class AccessoriesViewModel
 {
