@@ -1,3 +1,10 @@
+<!-- 
+* File Name: jackets.php
+* Purpose: This file displays a catalog of jackets products in a grid layout on the user interface. 
+* It retrieves jackets data passed from the controller and renders each item with an image, name, and price. 
+* The file also handles cases when no jakes items are available to display.
+* Version: 1.0
+-->
 <main>
     <div class="container">
         <div class="col-12 text-center">
