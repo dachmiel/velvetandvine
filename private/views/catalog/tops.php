@@ -1,3 +1,10 @@
+<!-- 
+* File Name: tops.php
+* Purpose:  This file displays a catalog of tops in a grid layout on the user interface. 
+* It retrieves tops data passed from the controller and renders each item with an image, name, and price. 
+* The file also handles cases when no top items are available to display.
+* Version: 1.0
+-->
 <main>
     <div class="container">
         <div class="col-12 text-center">
