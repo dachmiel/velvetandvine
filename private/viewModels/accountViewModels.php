@@ -1,4 +1,12 @@
 <?php
+/**
+ * File Name: AccountViewModels.php
+ * Purpose: This file contains the ViewModel classes for handling user account-related operations 
+ * such as login and registration. It includes validation checks for the login and 
+ * registration forms. 
+ * Version: 1.0
+ * 
+ */
 class LoginViewModel
 {
 
