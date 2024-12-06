@@ -1,3 +1,10 @@
+<!-- 
+* File Name: accessories.php
+* Purpose: This file displays a catalog of accessories in a grid layout on the user interface. 
+* It retrieves accessories data passed from the controller and renders each item with an image, name, and price. 
+* The file also handles cases when no denim items are available to display.
+* Version: 1.0
+-->
 <main>
     <div class="container">
         <div class="col-12 text-center">
