@@ -1,4 +1,10 @@
 <?php
+/*
+ * File Name: accountController.php
+ * Purpose: This file hanldes user account operations such as registration, login
+ * and log out. 
+ * Version: 1.0
+ */ 
 include_once "base/baseController.php";
 include_once __DIR__ . '/../models/ApplicationUser.php';
 include_once __DIR__ . '/../viewmodels/accountViewModels.php';

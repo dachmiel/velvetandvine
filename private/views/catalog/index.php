@@ -1,3 +1,9 @@
+<!-- 
+* File Name: index.php
+* Purpose: This file displays the product categories and creates scroll arrows for 
+* viewing the products. 
+* Version: 1.0
+-->
 <main>
     <?php if (isset($model) && !empty($model)): ?>
         <?php foreach ($model as $categoryId => $categoryProducts): ?>

@@ -1,4 +1,11 @@
 <?php
+/*
+ * File Name: adminController.php
+ * Purpose: This file holds the Admin user functionalities. The Admin can manage inventory 
+ * by viewing data from the database such as product ID, Name of product, description, quanity of stock, and 
+ * category name. It also allows an Admin to add or delete an item from the inventory. 
+ * Version: 1.0
+*/
 include_once "base/baseController.php";
 include_once __DIR__ . "/../viewModels/adminViewModels.php";
 include_once __DIR__ . "/../models/inventory.php";

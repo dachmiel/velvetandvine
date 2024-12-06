@@ -1,3 +1,9 @@
+<!-- 
+* File Name: ManageInventory.php
+* Purpose: This file manages the inventory on a the website. It allows the admin to add products
+* view existing products, and delete products. 
+* Version: 1.0
+-->
 <main>
     <div class="container py-4">
         <h2>Manage Inventory</h2>

@@ -1,3 +1,11 @@
+<!-- 
+* File Name: Product.php
+* Purpose: This file displays the product's details, including 
+* its image, description, prize, and size options. It also allows 
+* for users to select product quantity using the "+" and "-" buttons 
+* and the nadd the product to their cart. 
+* Version: 1.0
+-->
 <main>
     <div class="container mt-4">
         <div class="row align-items-center">

@@ -1,4 +1,11 @@
 <?php
+/*
+ * File Name: catalogController.php
+ * Purpose: This file jhandles requests related to the products on the website. 
+ * It uses the databse to get products in different categories and uses 
+ * the data to display product information.
+ * Version: 1.0
+*/
 include_once "base/baseController.php";  // Adjust the path as needed
 include_once __DIR__ . "/../viewModels/catalogViewModels.php";
 include_once __DIR__ . "/../models/db.php";
