@@ -117,21 +117,25 @@
                                                 <div class="mb-3">
                                                     <label for="categoryID" class="form-label">Category</label>
                                                     <select class="form-select" id="categoryID" name="CategoryID" required>
-
                                                         <!-- Set the default as the product's current category -->
+                                                        <option value="" disabled>Select a category</option>
+
                                                         <option value="<?= htmlspecialchars($product['CategoryID'] ?? '') ?>" selected>
                                                             <?= htmlspecialchars($product['CategoryName']) ?>
                                                         </option>
 
-                                                        <!-- Loop over all categories + skip the one we already did -->
                                                         <?php foreach ($categories as $category): ?>
+                                                            <!-- Check if this category is the product's category and set it as selected -->
                                                             <?php if ($category['CategoryName'] == ($product['CategoryName'] ?? '')) continue; ?>
-                                                            <option value="<?= htmlspecialchars($category['CategoryID']) ?>">
+                                                            <option value="<?= htmlspecialchars($category['CategoryID']) ?>"
+                                                                <?= isset($product['CategoryID']) && $category['CategoryID'] == $product['CategoryID'] ? 'selected' : '' ?>>
                                                                 <?= htmlspecialchars($category['CategoryName']) ?>
                                                             </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
+
+
 
                                                 <button type="submit" class="btn btn-success">Save Changes</button>
                                             </form>
