@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * File Name: db.php
+ * Purpose: This file connects the website database to a local MySQL server 
+ * with the name 'root'. 
+ * Version: 1.0
+ */
 function GetDatabaseConnection()
 {
     $dsn = 'mysql:host=localhost;dbname=Velvet&VineDB';
