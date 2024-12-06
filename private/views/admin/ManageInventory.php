@@ -114,26 +114,20 @@
                                                     <label for="stockQuantity<?= $product['ProductID'] ?>" class="form-label">Stock Quantity</label>
                                                     <input type="number" class="form-control" id="stockQuantity<?= $product['ProductID'] ?>" name="StockQuantity" value="<?= $product['StockQuantity'] ?>" required>
                                                 </div>
+
+
                                                 <div class="mb-3">
                                                     <label for="categoryID" class="form-label">Category</label>
                                                     <select class="form-select" id="categoryID" name="CategoryID" required>
-                                                        <!-- Set the default as the product's current category -->
-                                                        <option value="" disabled>Select a category</option>
-
-                                                        <option value="<?= htmlspecialchars($product['CategoryID'] ?? '') ?>" selected>
-                                                            <?= htmlspecialchars($product['CategoryName']) ?>
-                                                        </option>
-
                                                         <?php foreach ($categories as $category): ?>
-                                                            <!-- Check if this category is the product's category and set it as selected -->
-                                                            <?php if ($category['CategoryName'] == ($product['CategoryName'] ?? '')) continue; ?>
                                                             <option value="<?= htmlspecialchars($category['CategoryID']) ?>"
-                                                                <?= isset($product['CategoryID']) && $category['CategoryID'] == $product['CategoryID'] ? 'selected' : '' ?>>
+                                                                <?= isset($product['CategoryID']) && $category['CategoryName'] == $product['CategoryName'] ? 'selected' : '' ?>>
                                                                 <?= htmlspecialchars($category['CategoryName']) ?>
                                                             </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
+
 
 
 
