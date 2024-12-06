@@ -1,3 +1,10 @@
+<!-- 
+* File Name: bottoms.php
+* Purpose: This file displays the bottoms in stock in a grid layout on the user interface. 
+* It retrieves bottoms data passed from the controller and renders each item with an image, name, and price. 
+* It also handles if there is no accessories to display case. 
+* Version: 1.0
+-->
 <main>
     <div class="container">
         <div class="col-12 text-center">
