@@ -117,14 +117,22 @@
                                                 <div class="mb-3">
                                                     <label for="categoryID" class="form-label">Category</label>
                                                     <select class="form-select" id="categoryID" name="CategoryID" required>
-                                                        <option value="" disabled selected>Select a category</option>
+
+                                                        <!-- Set the default as the product's current category -->
+                                                        <option value="<?= htmlspecialchars($product['CategoryID'] ?? '') ?>" selected>
+                                                            <?= htmlspecialchars($product['CategoryName']) ?>
+                                                        </option>
+
+                                                        <!-- Loop over all categories + skip the one we already did -->
                                                         <?php foreach ($categories as $category): ?>
-                                                            <option value="<?= $category['CategoryID'] ?>">
+                                                            <?php if ($category['CategoryName'] == ($product['CategoryName'] ?? '')) continue; ?>
+                                                            <option value="<?= htmlspecialchars($category['CategoryID']) ?>">
                                                                 <?= htmlspecialchars($category['CategoryName']) ?>
                                                             </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
+
                                                 <button type="submit" class="btn btn-success">Save Changes</button>
                                             </form>
                                         </div>
