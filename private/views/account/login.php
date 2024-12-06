@@ -1,3 +1,9 @@
+<!-- 
+* File Name: login.php
+* Purpose: This file contains the functionalities for a user to log in to the website. 
+* It contains fields for email and password and displays a "Login" button to submit the form. 
+* Version: 1.0
+-->
 <main>
     <div class="container py-5">
         <div class="row">
