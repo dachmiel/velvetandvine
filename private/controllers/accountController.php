@@ -10,13 +10,15 @@ include_once __DIR__ . '/../models/ApplicationUser.php';
 include_once __DIR__ . '/../viewmodels/accountViewModels.php';
 include_once __DIR__ . "/../models/db.php";
 
+
+
 class AccountController extends BaseController
 {
     public function Index($id = null)
     {
         $this->view('index');
     }
-
+   
     public function Register()
     {
 
@@ -164,8 +166,8 @@ class AccountController extends BaseController
 
     // Pass user data to the view
     $this->view('profile', ['user' => $user]);
+    
 }
-
     public function LogOut()
     {
 
@@ -177,4 +179,55 @@ class AccountController extends BaseController
 
         header("location: /velvetandvine");
     }
+
+
+    public function UpdateProfile()
+    {
+        // Ensure the user is authenticated
+        if (!$this->isAuthenticated()) {
+            header("Location: /velvetandvine/account/login");
+            exit;
+        }
+
+        $userID = $_SESSION['userid'];
+        $dbContext = getDatabaseConnection();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get the updated user data from the form
+            $email = $_POST['email'];
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+
+            // Update the user's profile in the database
+            $stmt = $dbContext->prepare("UPDATE application_users SET email = ?, firstname = ?, lastname = ? WHERE userid = ?");
+            $stmt->execute([$email, $firstname, $lastname, $userID]);
+           
+            // Redirect back to the profile page
+            header("Location: /velvetandvine/account/profile");
+            exit;
+        }
+
+        // Fetch user data from the database
+        $stmt = $dbContext->prepare("SELECT userid, email, firstname, lastname FROM application_users WHERE userid = ?");
+        $stmt->execute([$userID]);
+        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Check if user was found
+        if (!$userData) {
+            echo "User not found!";
+            exit;
+        }
+
+        // Populate ApplicationUser object
+        $user = new ApplicationUser();
+        $user->userID = $userData['userid'];
+        $user->first_name = $userData['firstname'];
+        $user->last_name = $userData['lastname'];
+        $user->email = $userData['email'];
+
+        // Pass user data to the view
+        $this->view('update_profile', ['user' => $user]);
+    }
+
+
 }

@@ -42,7 +42,7 @@
                             <a href="/velvetandvine/account/logout" class="btn submit-btn">Log Out</a>
                         </div>
                         <div class="col-sm-4 d-grid">
-                            <a href="/velvetandvine/home" class="btn cancel-btn">Cancel</a>
+                            <a href="/velvetandvine/account/updateprofile" class="btn cancel-btn">Update Profile</a>
                         </div>
                     </div>
                 <?php } ?>
