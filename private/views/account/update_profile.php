@@ -1,4 +1,3 @@
-
 <!-- 
 * File Name: update_profile.php
 * Purpose: This file displays allows the user to update their profile information. 
@@ -44,7 +43,7 @@
 
                 <div class="row mb-3">
                     <div class="offset-sm-4 col-sm-4 d-grid">
-                        <a href="profile.php" class="btn cancel-btn">Back to Profile</a>
+                        <a href="profile" class="btn cancel-btn">Back to Profile</a>
                     </div>
                 </div>
             </div>
