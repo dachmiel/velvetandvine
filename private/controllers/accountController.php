@@ -137,6 +137,35 @@ class AccountController extends BaseController
         $this->view('login', ['model' => $LoginViewModel]);
     }
 
+    //method to showcase user profile 
+    public function Profile()
+{
+    // Ensure the user is authenticated
+    if (!$this->isAuthenticated()) {
+        header("Location: /velvetandvine/account/login");
+        exit;
+    }
+
+    // Fetch user details from the database
+    $userId = $_SESSION['userid'];
+    $dbContext = getDatabaseConnection();
+
+    $statement = $dbContext->prepare("SELECT email, firstname, lastname FROM application_users WHERE userid = :userid");
+    $statement->bindParam(':userid', $userId, PDO::PARAM_INT);
+    $statement->execute();
+
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+    // Check if user was found
+    if (!$user) {
+        echo "User not found!";
+        exit;
+    }
+
+    // Pass user data to the view
+    $this->view('profile', ['user' => $user]);
+}
+
     public function LogOut()
     {
 
