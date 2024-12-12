@@ -1,3 +1,17 @@
+<div class="promo-banner">
+ <div class="container position-relative"> <!-- Added position-relative -->
+   <!-- Centered text -->
+   <p class="text-center mb-0">FREE SHIPPING US ORDERS $100+</p>
+  
+   <!-- Absolutely positioned social icons -->
+   <div class="social-icons position-absolute start-0 top-50 translate-middle-y">
+     <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+     <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+     <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+   </div>
+ </div>
+</div>
+
 <div class="header-custom">
   <div class="container position-relative">
     <div class="d-flex align-items-center justify-content-between">
