@@ -9,7 +9,7 @@
 <main>
     <div class="container">
         <div class="col-12 text-center">
-            <h3>Denims</h3>
+            <h3>Denim</h3>
         </div>
         <div class="row">
             <!-- Loop through the denims array in the denimsViewModel -->
@@ -35,7 +35,7 @@
         <?php endif; ?>
     <?php endforeach; ?>
 <?php else: ?>
-    <p>No denims found in this category.</p>
+    <p>No denim found in this category.</p>
 <?php endif; ?>
         </div>
     </div>

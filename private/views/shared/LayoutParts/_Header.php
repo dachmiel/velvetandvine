@@ -1,3 +1,21 @@
+<div class="promo-banner">
+ <div class="container position-relative">
+   <p class="text-center mb-0">FREE SHIPPING US ORDERS $100+</p>
+  
+   <div class="social-icons position-absolute start-0 top-50 translate-middle-y">
+     <a href="https://www.instagram.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+       <i class="fab fa-instagram"></i>
+     </a>
+     <a href="https://www.facebook.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+       <i class="fab fa-facebook"></i>
+     </a>
+     <a href="https://twitter.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+       <i class="fab fa-twitter"></i>
+     </a>
+   </div>
+ </div>
+</div>
+
 <div class="header-custom">
   <div class="container position-relative">
     <div class="d-flex align-items-center justify-content-between">
@@ -14,7 +32,7 @@
         <a class="navbar-brand" href="/velvetandvine">
           <img src="/velvetandvine/public/images/logo.png"
             alt="Velvet&Vine Logo"
-            style="max-width: 200px; height: auto;" />
+            style="max-width: 180px; height: auto;" />
         </a>
       </div>
 
@@ -77,6 +95,30 @@
 </div>
 
 <style>
+ .promo-banner {
+    background-color: #333;
+    padding: 8px 0;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+ 
+  .social-icons {
+    display: flex;
+    gap: 15px;
+    margin-left: -2rem; /* Positive margin to adjust from the left edge */
+  }
+
+  .social-icon {
+    color: white;
+    font-size: 14px;
+    transition: opacity 0.2s;
+  }
+
+  .social-icon:hover {
+    opacity: 0.8;
+    color: white; 
+ }
   .header-custom {
     background-color: #faf7f0;
     padding: 40px 0;
