@@ -20,8 +20,8 @@
   <div class="container position-relative">
     <div class="d-flex align-items-center justify-content-between">
 
-      <!-- Left: Search Bar -->
-      <div class="search-bar d-flex align-items-center">
+     <!-- Left: Search Bar -->
+     <div class="search-bar d-flex align-items-center">
        <form class="search-form" onsubmit="return handleSearch(event)">
          <i class="fas fa-search search-icon"></i>
          <input type="search"
@@ -46,7 +46,7 @@
 
         if (isset($_SESSION["userid"]) && $_SESSION["user_type"] == "Admin") {
         ?>
-          <ul class="navbar-nav">
+          <ul class="navbar-nav d-flex flex-row gap-2">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-black" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Admin
@@ -60,11 +60,16 @@
                 <li><a class="dropdown-item" href="/velvetandvine/account/logout">Logout</a></li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a class="auth-link" href="/velvetandvine/account/cart">Cart
+                <i class="fas fa-shopping-bag me-1"></i>
+              </a>
+           </li>
           </ul>
         <?php
         } else if (isset($_SESSION["userid"]) && $_SESSION["user_type"] == "Customer") {
         ?>
-          <ul class="navbar-nav">
+          <ul class="navbar-nav d-flex flex-row gap-2">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-black" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Settings
@@ -77,6 +82,11 @@
                 <li><a class="dropdown-item" href="/velvetandvine/account/logout">Logout</a></li>
               </ul>
             </li>
+            <li class="nav-item">
+              <a class="auth-link" href="/velvetandvine/account/cart">Cart
+                <i class="fas fa-shopping-bag me-1"></i>
+              </a>
+           </li>
           </ul>
         <?php
         } else {
@@ -86,8 +96,13 @@
               <a class="auth-link me-3" href="/velvetandvine/account/register">Register</a>
             </li>
             <li class="nav-item">
-              <a class="auth-link" href="/velvetandvine/account/login">Login</a>
+              <a class="auth-link me-3" href="/velvetandvine/account/login">Login</a>
             </li>
+            <li class="nav-item">
+              <a class="auth-link" href="/velvetandvine/account/cart">Cart
+               <i class="fas fa-shopping-bag me-1"></i>
+             </a>
+           </li>
           </ul>
         <?php
         }
