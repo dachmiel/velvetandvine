@@ -90,3 +90,25 @@ class TopViewModel
     public $description;
     public $price;
 }
+class NewsViewModel
+{
+    public $new = [];
+}
+class NewViewModel
+{
+    public $productID;
+    public $name;
+    public $description;
+    public $price;
+}
+class SalesViewModel
+{
+    public $sale = [];
+}
+class SaleViewModel
+{
+    public $productID;
+    public $name;
+    public $description;
+    public $price;
+}

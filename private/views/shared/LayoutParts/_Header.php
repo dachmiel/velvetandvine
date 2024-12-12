@@ -22,10 +22,13 @@
 
       <!-- Left: Search Bar -->
       <div class="search-bar d-flex align-items-center">
-        <form class="search-form">
-          <input type="search" class="form-control" placeholder="Search">
-        </form>
-      </div>
+       <form class="search-form" onsubmit="return handleSearch(event)">
+         <input type="search"
+                id="searchInput"
+                class="form-control"
+                placeholder="Search">
+       </form>
+     </div>
 
       <!-- Center: Logo (Absolutely Centered) -->
       <div class="logo-container position-absolute top-50 start-50 translate-middle">
@@ -151,3 +154,75 @@
     text-decoration: underline;
   }
 </style>
+
+<script>
+       function handleSearch(event) {
+         event.preventDefault();
+        
+         const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+         const categoryMap = {
+          'new arrival': 'new',
+          'new arrivals': 'new',
+         
+          // Tops
+          'top': 'tops',
+          'tops': 'tops',
+          'shirt': 'tops',
+          'shirts': 'tops',
+          'blouse': 'tops',
+          'blouses': 'tops',
+         
+          // Dresses
+          'dress': 'dresses',
+          'dresses': 'dresses',
+         
+          // Bottoms
+          'bottom': 'bottoms',
+          'bottoms': 'bottoms',
+          'pant': 'bottoms',
+          'pants': 'bottoms',
+          'skirt': 'bottoms',
+          'skirts': 'bottoms',
+          'short': 'bottoms',
+          'shorts': 'bottoms',
+
+          // Denim
+          'denim': 'denims',
+          'jean': 'denims',
+          'jeans': 'denims',
+         
+          // Accessories
+          'accessory': 'accessories',
+          'accessories': 'accessories',
+          'jewelry': 'accessories',
+          'necklace': 'accessories',
+          'necklaces': 'accessories',
+          'bracelet': 'accessories',
+          'bracelets': 'accessories',
+          'earring': 'accessories',
+          'earrings': 'accessories',
+         
+          // Jackets
+          'jacket': 'jackets',
+          'jackets': 'jackets',
+          'coat': 'jackets',
+          'coats': 'jackets',
+          'outerwear': 'jackets',
+         
+          // Sale
+          'sale': 'sale',
+          'discount': 'sale',
+          'clearance': 'sale'
+         };
+
+
+         if (categoryMap[searchTerm]) {
+           window.location.href = `/velvetandvine/catalog/${categoryMap[searchTerm]}`;
+         } else {
+           // Optional: Show an error message or suggestion
+           alert('Please search for a valid category: new, tops, dresses, bottoms, denim, accessories, jackets, or sale');
+         }
+        
+         return false;
+       }
+     </script>
