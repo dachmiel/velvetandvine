@@ -28,7 +28,7 @@
         <a class="navbar-brand" href="/velvetandvine">
           <img src="/velvetandvine/public/images/logo.png"
             alt="Velvet&Vine Logo"
-            style="max-width: 200px; height: auto;" />
+            style="max-width: 180px; height: auto;" />
         </a>
       </div>
 
@@ -91,6 +91,30 @@
 </div>
 
 <style>
+ .promo-banner {
+    background-color: #333;
+    padding: 8px 0;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+ 
+  .social-icons {
+    display: flex;
+    gap: 15px;
+    margin-left: -2rem; /* Positive margin to adjust from the left edge */
+  }
+
+  .social-icon {
+    color: white;
+    font-size: 14px;
+    transition: opacity 0.2s;
+  }
+
+  .social-icon:hover {
+    opacity: 0.8;
+    color: white; 
+ }
   .header-custom {
     background-color: #faf7f0;
     padding: 40px 0;
