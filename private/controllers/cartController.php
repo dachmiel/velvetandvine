@@ -49,10 +49,7 @@ class CartController extends BaseController
             );
         }
         //var_dump($cartViewModel);
-        var_dump($cart);
-        $this->view('viewCart', [
-            'cart' => $cart,
-            'cartItems' => $cartItems
-        ]);
+        //var_dump($cart);
+        $this->view('viewCart', ['cart' => $cart, 'cartItems' => $cartItems]);
     }
 }
