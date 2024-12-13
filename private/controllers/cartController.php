@@ -1,7 +1,7 @@
 <?php
 
 include_once "base/baseController.php";
-include_once __DIR__ . "/../views/account/cart.php";
+include_once __DIR__ . "/../views/cart/viewCart.php";
 include_once __DIR__ . "/../viewModels/cartViewModels.php";
 include_once __DIR__ . "/../models/db.php";
 include_once __DIR__ . "/../models/cartModel.php";
@@ -48,8 +48,8 @@ class CartController extends BaseController
                 $item['Subtotal']
             );
         }
-
-        $this->view('cart', [
+        //var_dump($cartViewModel);
+        $this->view('viewCart', [
             'cartViewModel' => $cartViewModel,
             'cartItemViewModels' => $cartItemViewModels
         ]);

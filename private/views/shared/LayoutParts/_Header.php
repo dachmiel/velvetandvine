@@ -1,35 +1,35 @@
 <div class="promo-banner">
- <div class="container position-relative">
-   <p class="text-center mb-0">FREE SHIPPING US ORDERS $100+</p>
-  
-   <div class="social-icons position-absolute start-0 top-50 translate-middle-y">
-     <a href="https://www.instagram.com" class="social-icon" target="_blank" rel="noopener noreferrer">
-       <i class="fab fa-instagram"></i>
-     </a>
-     <a href="https://www.facebook.com" class="social-icon" target="_blank" rel="noopener noreferrer">
-       <i class="fab fa-facebook"></i>
-     </a>
-     <a href="https://twitter.com" class="social-icon" target="_blank" rel="noopener noreferrer">
-       <i class="fab fa-twitter"></i>
-     </a>
-   </div>
- </div>
+  <div class="container position-relative">
+    <p class="text-center mb-0">FREE SHIPPING US ORDERS $100+</p>
+
+    <div class="social-icons position-absolute start-0 top-50 translate-middle-y">
+      <a href="https://www.instagram.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="https://www.facebook.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="https://twitter.com" class="social-icon" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </div>
+  </div>
 </div>
 
 <div class="header-custom">
   <div class="container position-relative">
     <div class="d-flex align-items-center justify-content-between">
 
-     <!-- Left: Search Bar -->
-     <div class="search-bar d-flex align-items-center">
-       <form class="search-form" onsubmit="return handleSearch(event)">
-         <i class="fas fa-search search-icon"></i>
-         <input type="search"
-                id="searchInput"
-                class="form-control"
-                placeholder="     Search">
-       </form>
-     </div>
+      <!-- Left: Search Bar -->
+      <div class="search-bar d-flex align-items-center">
+        <form class="search-form" onsubmit="return handleSearch(event)">
+          <i class="fas fa-search search-icon"></i>
+          <input type="search"
+            id="searchInput"
+            class="form-control"
+            placeholder="     Search">
+        </form>
+      </div>
 
       <!-- Center: Logo (Absolutely Centered) -->
       <div class="logo-container position-absolute top-50 start-50 translate-middle">
@@ -61,10 +61,10 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="auth-link" href="/velvetandvine/account/cart">Cart
+              <a class="auth-link" href="/velvetandvine/cart/viewcart">Cart
                 <i class="fas fa-shopping-bag me-1"></i>
               </a>
-           </li>
+            </li>
           </ul>
         <?php
         } else if (isset($_SESSION["userid"]) && $_SESSION["user_type"] == "Customer") {
@@ -86,7 +86,7 @@
               <a class="auth-link" href="/velvetandvine/account/cart">Cart
                 <i class="fas fa-shopping-bag me-1"></i>
               </a>
-           </li>
+            </li>
           </ul>
         <?php
         } else {
@@ -99,10 +99,10 @@
               <a class="auth-link me-3" href="/velvetandvine/account/login">Login</a>
             </li>
             <li class="nav-item">
-              <a class="auth-link" href="/velvetandvine/account/cart">Cart
-               <i class="fas fa-shopping-bag me-1"></i>
-             </a>
-           </li>
+              <a class="auth-link" href="/velvetandvine/cart/viewcart">Cart
+                <i class="fas fa-shopping-bag me-1"></i>
+              </a>
+            </li>
           </ul>
         <?php
         }
@@ -114,18 +114,19 @@
 </div>
 
 <style>
- .promo-banner {
+  .promo-banner {
     background-color: #333;
     padding: 8px 0;
     color: white;
     font-size: 0.7rem;
     font-weight: 500;
   }
- 
+
   .social-icons {
     display: flex;
     gap: 15px;
-    margin-left: -2rem; /* Positive margin to adjust from the left edge */
+    margin-left: -2rem;
+    /* Positive margin to adjust from the left edge */
   }
 
   .social-icon {
@@ -136,25 +137,25 @@
 
   .social-icon:hover {
     opacity: 0.8;
-    color: white; 
- }
- 
- .search-form {
- position: relative;
-}
+    color: white;
+  }
 
-.search-icon {
- position: absolute;
- left: 10px;
- top: 50%;
- transform: translateY(-50%);
- color: #333;
- z-index: 10;
-}
+  .search-form {
+    position: relative;
+  }
 
-.search-form .form-control {
- padding-left: 35px; 
-}
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+    z-index: 10;
+  }
+
+  .search-form .form-control {
+    padding-left: 35px;
+  }
 
   .header-custom {
     background-color: #faf7f0;
@@ -190,73 +191,73 @@
 </style>
 
 <script>
-       function handleSearch(event) {
-         event.preventDefault();
-        
-         const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-         const categoryMap = {
-          'new arrival': 'new',
-          'new arrivals': 'new',
-         
-          // Tops
-          'top': 'tops',
-          'tops': 'tops',
-          'shirt': 'tops',
-          'shirts': 'tops',
-          'blouse': 'tops',
-          'blouses': 'tops',
-         
-          // Dresses
-          'dress': 'dresses',
-          'dresses': 'dresses',
-         
-          // Bottoms
-          'bottom': 'bottoms',
-          'bottoms': 'bottoms',
-          'pant': 'bottoms',
-          'pants': 'bottoms',
-          'skirt': 'bottoms',
-          'skirts': 'bottoms',
-          'short': 'bottoms',
-          'shorts': 'bottoms',
+  function handleSearch(event) {
+    event.preventDefault();
 
-          // Denim
-          'denim': 'denims',
-          'jean': 'denims',
-          'jeans': 'denims',
-         
-          // Accessories
-          'accessory': 'accessories',
-          'accessories': 'accessories',
-          'jewelry': 'accessories',
-          'necklace': 'accessories',
-          'necklaces': 'accessories',
-          'bracelet': 'accessories',
-          'bracelets': 'accessories',
-          'earring': 'accessories',
-          'earrings': 'accessories',
-         
-          // Jackets
-          'jacket': 'jackets',
-          'jackets': 'jackets',
-          'coat': 'jackets',
-          'coats': 'jackets',
-          'outerwear': 'jackets',
-         
-          // Sale
-          'sale': 'sale',
-          'discount': 'sale',
-          'clearance': 'sale'
-         };
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+    const categoryMap = {
+      'new arrival': 'new',
+      'new arrivals': 'new',
+
+      // Tops
+      'top': 'tops',
+      'tops': 'tops',
+      'shirt': 'tops',
+      'shirts': 'tops',
+      'blouse': 'tops',
+      'blouses': 'tops',
+
+      // Dresses
+      'dress': 'dresses',
+      'dresses': 'dresses',
+
+      // Bottoms
+      'bottom': 'bottoms',
+      'bottoms': 'bottoms',
+      'pant': 'bottoms',
+      'pants': 'bottoms',
+      'skirt': 'bottoms',
+      'skirts': 'bottoms',
+      'short': 'bottoms',
+      'shorts': 'bottoms',
+
+      // Denim
+      'denim': 'denims',
+      'jean': 'denims',
+      'jeans': 'denims',
+
+      // Accessories
+      'accessory': 'accessories',
+      'accessories': 'accessories',
+      'jewelry': 'accessories',
+      'necklace': 'accessories',
+      'necklaces': 'accessories',
+      'bracelet': 'accessories',
+      'bracelets': 'accessories',
+      'earring': 'accessories',
+      'earrings': 'accessories',
+
+      // Jackets
+      'jacket': 'jackets',
+      'jackets': 'jackets',
+      'coat': 'jackets',
+      'coats': 'jackets',
+      'outerwear': 'jackets',
+
+      // Sale
+      'sale': 'sale',
+      'discount': 'sale',
+      'clearance': 'sale'
+    };
 
 
-         if (categoryMap[searchTerm]) {
-           window.location.href = `/velvetandvine/catalog/${categoryMap[searchTerm]}`;
-         } else {
-           // Optional: Show an error message or suggestion
-           alert('Please search for a valid category: new, tops, dresses, bottoms, denim, accessories, jackets, or sale');
-         }
-        
-         return false;
-       }
-     </script>
+    if (categoryMap[searchTerm]) {
+      window.location.href = `/velvetandvine/catalog/${categoryMap[searchTerm]}`;
+    } else {
+      // Optional: Show an error message or suggestion
+      alert('Please search for a valid category: new, tops, dresses, bottoms, denim, accessories, jackets, or sale');
+    }
+
+    return false;
+  }
+</script>
