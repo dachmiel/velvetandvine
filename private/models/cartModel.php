@@ -2,6 +2,12 @@
 
 class CartModel
 {
+
+    public $CartID;
+    public $UserID;
+    public $CreatedDate;
+    public $TotalAmount;
+
     public function getCartByUserId($userId)
     {
 
