@@ -106,6 +106,74 @@ class CartController extends BaseController
         header("Location: /velvetandvine/cart/viewCart");
         exit;
     }
+
+    public function updateQuantity()
+    {
+
+        if (!$this->isAuthenticated()) {
+            header("Location: /velvetandvine/account/login");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userId = $_SESSION['userid'];
+
+            $productId = filter_input(INPUT_POST, 'productId', FILTER_VALIDATE_INT);
+            $quantity = filter_input(INPUT_POST, 'quantity', FILTER_VALIDATE_INT);
+
+            if (!$productId || !$quantity || $quantity < 1) {
+                header("Location: /velvetandvine/cart/viewCart");
+                exit;
+            }
+
+            $cartModel = new CartModel();
+            $cart = $cartModel->getCartByUserId($userId);
+
+            if ($cart) {
+                updateCartItem($cart['CartID'], $productId, $quantity);
+                updateCartTotalAmount($cart, $cartModel->getCartItems($cart['CartID']));
+            }
+
+            header("Location: /velvetandvine/cart/viewCart");
+            exit;
+        }
+
+        header("Location: /velvetandvine/cart/viewCart");
+        exit;
+    }
+
+    public function deleteItem()
+    {
+        if (!$this->isAuthenticated()) {
+            header("Location: /velvetandvine/account/login");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userId = $_SESSION['userid'];
+
+            $productId = filter_input(INPUT_POST, 'productId', FILTER_VALIDATE_INT);
+
+            if (!$productId) {
+                header("Location: /velvetandvine/cart/viewCart");
+                exit;
+            }
+
+            $cartModel = new CartModel();
+            $cart = $cartModel->getCartByUserId($userId);
+
+            if ($cart) {
+                removeFromCart($cart['CartID'], $productId);
+                updateCartTotalAmount($cart, $cartModel->getCartItems($cart['CartID']));
+            }
+
+            header("Location: /velvetandvine/cart/viewCart");
+            exit;
+        }
+
+        header("Location: /velvetandvine/cart/viewCart");
+        exit;
+    }
 }
 
 function getProductNameById($productId)
@@ -207,4 +275,36 @@ function addItemToCart($cartId, $productId, $quantity)
         $stmt->bindParam(':subtotal', $subtotal, PDO::PARAM_STR);
         $stmt->execute();
     }
+}
+
+function updateCartItem($cartId, $productId, $quantity)
+{
+    $dbContext = getDatabaseConnection();
+
+    $query = "SELECT * FROM shopping_cart_item WHERE CartID = :cartId AND ProductID = :productId";
+    $stmt = $dbContext->prepare($query);
+    $stmt->bindParam(':cartId', $cartId, PDO::PARAM_INT);
+    $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
+    $stmt->execute();
+    $cartItem = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($cartItem) {
+        $query = "UPDATE shopping_cart_items SET Quantity = :quantity WHERE CartID = :cartId AND ProductID = :productId";
+        $stmt = $dbContext->prepare($query);
+        $stmt->bindParam(':cartId', $cartId, PDO::PARAM_INT);
+        $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
+        $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+}
+
+function removeFromCart($cartId, $productId)
+{
+    $dbContext = getDatabaseConnection();
+
+    $query = "DELETE FROM shopping_cart_items WHERE CartID = :cartId AND ProductID = :productId";
+    $stmt = $dbContext->prepare($query);
+    $stmt->bindParam(':cartId', $cartId, PDO::PARAM_INT);
+    $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
+    $stmt->execute();
 }

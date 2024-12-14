@@ -14,10 +14,8 @@
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
                             <!-- No clue how to do images -->
-                            <img src="/velvetandvine/public/images/products/product_<?= htmlspecialchars($item->ProductID); ?>.jpg"
-                                class="card-img-top"
-                                alt="<?= htmlspecialchars($item->ProductName); ?>"
-                                style="height: 200px; object-fit: cover;">
+                            <img src="/public/images/products/product_<?php echo $item->productID ?>.jpg"
+                                alt="<?php echo $item->ProductName; ?>" style="width: 100%; height: 100%;">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($item->ProductName); ?></h5>
                                 <p class="card-text"><strong>Price:</strong> $<?= number_format($item->Subtotal, 2); ?></p>
