@@ -27,7 +27,7 @@
           <input type="search"
             id="searchInput"
             class="form-control"
-            placeholder="     Search">
+            placeholder="Search">
         </form>
       </div>
 
@@ -140,21 +140,21 @@
     color: white;
   }
 
-  .search-form {
-    position: relative;
-  }
-
   .search-icon {
     position: absolute;
-    left: 10px;
+    left: 25px;
+    /* Adjust as needed */
     top: 50%;
     transform: translateY(-50%);
     color: #333;
+    font-size: 1rem;
     z-index: 10;
   }
 
   .search-form .form-control {
-    padding-left: 35px;
+    text-indent: 20px;
+    /* Adjust this value to move the text rightward */
+    border-radius: 10px;
   }
 
   .header-custom {
