@@ -31,6 +31,7 @@
         </form>
       </div>
 
+
       <!-- Center: Logo (Absolutely Centered) -->
       <div class="logo-container position-absolute top-50 start-50 translate-middle">
         <a class="navbar-brand" href="/velvetandvine">
@@ -143,7 +144,6 @@
   .search-icon {
     position: absolute;
     left: 25px;
-    /* Adjust as needed */
     top: 50%;
     transform: translateY(-50%);
     color: #333;
@@ -153,7 +153,6 @@
 
   .search-form .form-control {
     text-indent: 20px;
-    /* Adjust this value to move the text rightward */
     border-radius: 10px;
   }
 
