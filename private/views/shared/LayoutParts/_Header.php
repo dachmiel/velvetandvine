@@ -188,6 +188,11 @@
   .auth-buttons .auth-link:hover {
     text-decoration: underline;
   }
+
+  .nav-item .dropdown-menu {
+    z-index: 1070;
+
+  }
 </style>
 
 <script>
