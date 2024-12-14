@@ -36,7 +36,7 @@ class CartController extends BaseController
             );
         }
 
-        $cartItems = $cartModel->getCartItems($cartViewModel->CartID);
+        $cartItems = $cartModel->getCartItems($cart['CartID']);
 
         $cartItemViewModels = [];
         foreach ($cartItems as $item) {
@@ -50,6 +50,8 @@ class CartController extends BaseController
         }
         //var_dump($cartViewModel);
         //var_dump($cart);
+        //var_dump($cartItems);
+        //var_dump($cartItemViewModels);
         $this->view('viewCart', ['cart' => $cart, 'cartItems' => $cartItems]);
     }
 }
