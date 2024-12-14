@@ -22,7 +22,7 @@
                                 <p class="card-text"><strong>Quantity:</strong> <?= htmlspecialchars($item->Quantity); ?></p>
                                 <div class="d-flex justify-content-between">
                                     <!-- Edit Quantity Button -->
-                                    <form action="/velvetandvine/cart/updateQuantity" method="POST">
+                                    <form method="POST" action="/velvetandvine/cart/updateQuantity">
                                         <input type="hidden" name="productId" value="<?= htmlspecialchars($item->ProductID); ?>">
                                         <input type="number" name="quantity" value="<?= htmlspecialchars($item->Quantity); ?>"
                                             min="1" class="form-control mb-2" style="width: 70px;">
@@ -30,7 +30,7 @@
                                     </form>
 
                                     <!-- Delete Button -->
-                                    <form action="/velvetandvine/cart/deleteItem" method="POST" onsubmit="return confirm('Are you sure you want to remove this item?');">
+                                    <form method="POST" action="/velvetandvine/cart/deleteItem" onsubmit="return confirm('Are you sure you want to remove this item?');">
                                         <input type="hidden" name="productId" value="<?= htmlspecialchars($item->$ProductID); ?>">
                                         <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
                                     </form>

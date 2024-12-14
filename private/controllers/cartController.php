@@ -118,9 +118,11 @@ class CartController extends BaseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_SESSION['userid'];
 
-            $productId = filter_input(INPUT_POST, 'productId', FILTER_VALIDATE_INT);
-            $quantity = filter_input(INPUT_POST, 'quantity', FILTER_VALIDATE_INT);
+            $productId = $_POST['productId'];
+            $quantity = $_POST['quantity'];
 
+            var_dump($productId);
+            var_dump($quantity);
             if (!$productId || !$quantity || $quantity < 1) {
                 header("Location: /velvetandvine/cart/viewCart");
                 exit;
@@ -132,10 +134,11 @@ class CartController extends BaseController
             if ($cart) {
                 updateCartItem($cart['CartID'], $productId, $quantity);
                 updateCartTotalAmount($cart, $cartModel->getCartItems($cart['CartID']));
+            } else {
+                $_SESSION['error'] = "Cart not found.";
+                header("Location: /velvetandvine/cart/viewCart");
+                exit;
             }
-
-            header("Location: /velvetandvine/cart/viewCart");
-            exit;
         }
 
         header("Location: /velvetandvine/cart/viewCart");
@@ -152,7 +155,7 @@ class CartController extends BaseController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_SESSION['userid'];
 
-            $productId = filter_input(INPUT_POST, 'productId', FILTER_VALIDATE_INT);
+            $productId = $_POST['productId'];
 
             if (!$productId) {
                 header("Location: /velvetandvine/cart/viewCart");
@@ -281,7 +284,7 @@ function updateCartItem($cartId, $productId, $quantity)
 {
     $dbContext = getDatabaseConnection();
 
-    $query = "SELECT * FROM shopping_cart_item WHERE CartID = :cartId AND ProductID = :productId";
+    $query = "SELECT * FROM shopping_cart_items WHERE CartID = :cartId AND ProductID = :productId";
     $stmt = $dbContext->prepare($query);
     $stmt->bindParam(':cartId', $cartId, PDO::PARAM_INT);
     $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
