@@ -66,6 +66,7 @@ class CartController extends BaseController
 
     public function addToCart()
     {
+        //same old same old
         if (!$this->isAuthenticated()) {
             header("Location: /velvetandvine/account/login");
             exit;
@@ -76,6 +77,8 @@ class CartController extends BaseController
         $productId = $_POST['productId'];
         $quantity = intval($_POST['quantity']);
 
+        //i dont even know if this is possible but we check anyways
+        //also i dont remember how to do errors
         if ($quantity <= 0) {
             header("Location: /velvetandvine/cart/viewCart?error=invalid_quantity");
             exit;
@@ -83,21 +86,23 @@ class CartController extends BaseController
 
         $cartModel = new CartModel();
 
-        // Retrieve the user's cart
+        //get tha cart
         $cart = $cartModel->getCartByUserId($userId);
 
-        // If no cart exists, create a new one
+        //if none, MAKE IT
         if (!$cart) {
             $cartId = $cartModel->createEmptyCart($userId);
         } else {
             $cartId = $cart['CartID'];
         }
 
+        //add it
         addItemToCart($cartId, $productId, $quantity);
 
         $cartItems = $cartModel->getCartItems($cartId);
         updateCartTotalAmount($cart, $cartItems);
 
+        //send them to the cart6
         header("Location: /velvetandvine/cart/viewCart");
         exit;
     }
@@ -106,9 +111,9 @@ class CartController extends BaseController
 function getProductNameById($productId)
 {
 
-    // Prepare the statement
     $dbContext = getDatabaseConnection();
 
+    //select the correctproduct
     $query = "SELECT NAME FROM products WHERE ProductID = :productId";
     $stmt = $dbContext->prepare($query);
     $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
@@ -116,15 +121,16 @@ function getProductNameById($productId)
 
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    //return the product's name
     return $product ? $product['NAME'] : null;
 }
 
 function getProductPriceById($productId)
 {
 
-    // Prepare the statement
     $dbContext = getDatabaseConnection();
 
+    //get the producty
     $query = "SELECT Price FROM products WHERE ProductID = :productId";
     $stmt = $dbContext->prepare($query);
     $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
@@ -132,6 +138,7 @@ function getProductPriceById($productId)
 
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    //return the $$$
     return $product ? $product['Price'] : null;
 }
 
@@ -140,6 +147,7 @@ function updateCartTotalAmount($cart, $cartItems)
 {
     $totalAmount = 0.0;
 
+    //get all the prices and add
     foreach ($cartItems as $item) {
         $productPrice = getProductPriceById($item['ProductID']);
 
@@ -147,10 +155,12 @@ function updateCartTotalAmount($cart, $cartItems)
             $totalAmount += $item['Quantity'] * $productPrice;
         }
     }
+    //update it
     $cart['Total Amount'] = $totalAmount;
 
     $dbContext = getDatabaseConnection();
 
+    //update in the db so it reflects on the page
     $query = "UPDATE shopping_carts SET TotalAmount = :totalAmount WHERE CartID = :cartId";
     $stmt = $dbContext->prepare($query);
     $stmt->bindParam(':cartId', $cart['CartID'], PDO::PARAM_INT);
@@ -164,14 +174,18 @@ function addItemToCart($cartId, $productId, $quantity)
 {
     $dbContext = getDatabaseConnection();
 
+
+    //get the item if it exists
     $query = "SELECT * FROM shopping_cart_items WHERE CartID = :cartId AND ProductID = :productId";
     $stmt = $dbContext->prepare($query);
     $stmt->bindParam(':cartId', $cartId, PDO::PARAM_INT);
     $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
     $stmt->execute();
 
+    //set it here
     $existingItem = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    //if it is ther ewe update the qualitity instead of adding a new item
     if ($existingItem) {
         $newQuantity = $existingItem['Quantity'] + $quantity;
         $query = "UPDATE shopping_cart_items SET Quantity = :quantity, Subtotal = :subtotal WHERE CartItemID = :cartItemId";
@@ -181,6 +195,8 @@ function addItemToCart($cartId, $productId, $quantity)
         $stmt->bindParam(':subtotal', $subtotal, PDO::PARAM_STR);
         $stmt->bindParam(':cartItemId', $existingItem['CartItemID'], PDO::PARAM_INT);
         $stmt->execute();
+
+        //otherwise we add a new item
     } else {
         $query = "INSERT INTO shopping_cart_items (CartID, ProductID, Quantity, Subtotal) VALUES (:cartId, :productId, :quantity, :subtotal)";
         $stmt = $dbContext->prepare($query);
