@@ -12,13 +12,13 @@
                     <div class="top-card" style="padding: 20px; text-align: center;">
                     <a href="/velvetandvine/catalog/product?pid=<?php echo urlencode($cartItem->productID); ?>" style="text-decoration: none; color: inherit;">
                     <img src="/velvetandvine/public/images/products/product_<?php echo $cartItem->productID ?>.jpg" onerror="this.onerror=null;this.src='/velvetandvine/public/images/no-image.jpg';" alt="<?php echo htmlspecialchars($cartItem->productID); ?>" style="width: 300px; height: 300px; object-fit: cover; margin-bottom: 10px;">
-                        <p>Product: <?php echo htmlspecialchars($cartItem->productId ?? ''); ?></p>
+                    <p>Item:</p>
+                    <h2 style="font-size: 16px;"><?php echo htmlspecialchars($cartItem->name ?? ''); ?></h2>
 
                         <!-- Product price -->
                         <p style="font-size: 16px;"><?php echo '$' . number_format($cartItem->subtotal * $cartItem->quantity, 2); ?></p>
                         </p>
                         
-
                         <!-- Product quantity -->
                         <p>Quantity: <?php echo htmlspecialchars($cartItem->quantity ?? ''); ?></p>
 

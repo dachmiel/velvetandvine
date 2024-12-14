@@ -16,7 +16,7 @@
                 <h1><?php echo $model->name; ?></h1>
                 <p><?php echo $model->description; ?></p>
                 <p><strong>Price: <?php echo $model->price; ?></strong></p>
-                <form method="post", action="addToCart">
+                <form method="post", action="/velvetandvine/cart/addToCart">
         <input type="hidden" name="productID" value="<?php echo $model->productID; ?>">
         <input type="hidden" name="name" value="<?php echo $model->name; ?>">
         <input type="hidden" name="price" value="<?php echo $model->price; ?>">
