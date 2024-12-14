@@ -1,7 +1,6 @@
 <?php
 
 include_once "base/baseController.php";
-//include_once __DIR__ . "/../views/cart/viewCart.php";
 include_once __DIR__ . "/../viewModels/cartViewModels.php";
 include_once __DIR__ . "/../models/db.php";
 include_once __DIR__ . "/../models/cartModel.php";
@@ -13,17 +12,20 @@ class CartController extends BaseController
     public function viewCart()
     {
 
+        //if not logged in, get_out.wav
         if (!$this->isAuthenticated()) {
             header("Location: /velvetandvine/account/login");
             exit;
         }
 
+        //get the userID
         $userId = $_SESSION['userid'];
 
         $cartModel = new CartModel();
 
         $cart = $cartModel->getCartByUserId($userId);
 
+        //if there is no cart, make a new one
         if (!$cart) {
             $cartID = $cartModel->createEmptyCart($userId);
             $cartViewModel = new CartViewModel($cartID, $userId, date('Y-m-d H:i:s'), 0.00);
@@ -36,7 +38,11 @@ class CartController extends BaseController
             );
         }
 
-        $cartItems = $cartModel->getCartItems($cart['CartID']);
+        //for new user
+        if ($cart)
+            $cartItems = $cartModel->getCartItems($cart['CartID']);
+        else
+            $cartItems = [];
 
         $cartItemViewModels = [];
         foreach ($cartItems as $item) {
