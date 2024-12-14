@@ -43,15 +43,75 @@ class CartController extends BaseController
             $cartItemViewModels[] = new CartItemViewModel(
                 $item['CartItemID'],
                 $item['CartID'],
-                $item['ProductID'],
                 $item['Quantity'],
-                $item['Subtotal']
+                getProductPriceById($item['ProductID']),
+                getProductNameById($item['ProductID'])
             );
         }
+
+        updateCartTotalAmount($cart, $cartItems);
+
         //var_dump($cartViewModel);
-        //var_dump($cart);
+        var_dump($cart);
         //var_dump($cartItems);
         //var_dump($cartItemViewModels);
-        $this->view('viewCart', ['cart' => $cart, 'cartItems' => $cartItems]);
+        $this->view('viewCart', ['cart' => $cart, 'cartItems' => $cartItemViewModels]);
     }
+}
+
+function getProductNameById($productId)
+{
+
+    // Prepare the statement
+    $dbContext = getDatabaseConnection();
+
+    $query = "SELECT NAME FROM products WHERE ProductID = :productId";
+    $stmt = $dbContext->prepare($query);
+    $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $product ? $product['NAME'] : null;
+}
+
+function getProductPriceById($productId)
+{
+
+    // Prepare the statement
+    $dbContext = getDatabaseConnection();
+
+    $query = "SELECT Price FROM products WHERE ProductID = :productId";
+    $stmt = $dbContext->prepare($query);
+    $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $product ? $product['Price'] : null;
+}
+
+
+function updateCartTotalAmount($cart, $cartItems)
+{
+    $totalAmount = 0.0;
+
+    foreach ($cartItems as $item) {
+        $productPrice = getProductPriceById($item['ProductID']);
+
+        if ($productPrice !== null) {
+            $totalAmount += $item['Quantity'] * $productPrice;
+        }
+    }
+    $cart['Total Amount'] = $totalAmount;
+
+    $dbContext = getDatabaseConnection();
+
+    $query = "UPDATE shopping_carts SET TotalAmount = :totalAmount WHERE CartID = :cartId";
+    $stmt = $dbContext->prepare($query);
+    $stmt->bindParam(':cartId', $cart['CartID'], PDO::PARAM_INT);
+    $stmt->bindParam(':totalAmount', $totalAmount, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return;
 }
