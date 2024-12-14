@@ -12,10 +12,10 @@
             <div class="row">
                 <?php foreach ($cartItems as $item): ?>
                     <div class="col-md-4 mb-4">
-                        <div class="card h-100">
+                        <div class="card h-200">
                             <!-- Images -->
                             <img src="/velvetandvine/public/images/products/product_<?php echo $item->ProductID ?>.jpg"
-                                alt="<?php echo $item->ProductName; ?>" style="width: 100%; height: 100%;">
+                                alt="<?php echo $item->ProductName; ?>" style="width: 325px; height: 300px; object-fit: cover; margin-bottom: 10px;">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($item->ProductName); ?></h5>
                                 <p class="card-text"><strong>Price:</strong> $<?= number_format($item->Subtotal, 2); ?></p>
