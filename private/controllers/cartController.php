@@ -164,7 +164,7 @@ function addItemToCart($cartId, $productId, $quantity)
 {
     $dbContext = getDatabaseConnection();
 
-    $query = "SELECT * FROM cart_items WHERE CartID = :cartId AND ProductID = :productId";
+    $query = "SELECT * FROM shopping_cart_items WHERE CartID = :cartId AND ProductID = :productId";
     $stmt = $dbContext->prepare($query);
     $stmt->bindParam(':cartId', $cartId, PDO::PARAM_INT);
     $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
@@ -174,7 +174,7 @@ function addItemToCart($cartId, $productId, $quantity)
 
     if ($existingItem) {
         $newQuantity = $existingItem['Quantity'] + $quantity;
-        $query = "UPDATE cart_items SET Quantity = :quantity, Subtotal = :subtotal WHERE CartItemID = :cartItemId";
+        $query = "UPDATE shopping_cart_items SET Quantity = :quantity, Subtotal = :subtotal WHERE CartItemID = :cartItemId";
         $subtotal = getProductPriceById($productId) * $newQuantity;
         $stmt = $dbContext->prepare($query);
         $stmt->bindParam(':quantity', $newQuantity, PDO::PARAM_INT);
@@ -182,7 +182,7 @@ function addItemToCart($cartId, $productId, $quantity)
         $stmt->bindParam(':cartItemId', $existingItem['CartItemID'], PDO::PARAM_INT);
         $stmt->execute();
     } else {
-        $query = "INSERT INTO cart_items (CartID, ProductID, Quantity, Subtotal) VALUES (:cartId, :productId, :quantity, :subtotal)";
+        $query = "INSERT INTO shopping_cart_items (CartID, ProductID, Quantity, Subtotal) VALUES (:cartId, :productId, :quantity, :subtotal)";
         $stmt = $dbContext->prepare($query);
         $subtotal = getProductPriceById($productId) * $quantity;
         $stmt->bindParam(':cartId', $cartId, PDO::PARAM_INT);
