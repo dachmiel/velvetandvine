@@ -52,6 +52,7 @@ class CartController extends BaseController
                 $item['ProductID'],
                 $item['Quantity'],
                 getProductPriceById($item['ProductID']),
+                $item['Subtotal'],
                 getProductNameById($item['ProductID'])
             );
         }

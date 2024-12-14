@@ -24,7 +24,7 @@
                                         <h5 class="card-title" style="margin-bottom: 0.5rem;">
                                             <?= htmlspecialchars($item->ProductName); ?>
                                         </h5>
-                                        <p class="card-text" style="margin-bottom: 0.5rem;"><strong>Price:</strong> $<?= number_format($item->Subtotal, 2); ?></p>
+                                        <p class="card-text" style="margin-bottom: 0.5rem;"><strong>Price:</strong> $<?= number_format($item->Price, 2); ?></p>
                                         <p class="card-text" style="margin-bottom: 0.5rem;"><strong>Quantity:</strong> </p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <!-- Edit Quantity Button -->
@@ -43,6 +43,9 @@
                                                     <button type="button" class="btn btn-outline-dark" onclick="updateQuantity(<?= $item->ProductID ?>, 1)">+</button>
                                                 </div>
                                             </form>
+
+                                            <!-- Subtotal -->
+                                            <p class="card-text"><strong>Subtotal:</strong> $<span id="subtotal-<?= $item->ProductID ?>"><?= number_format($item->Quantity * $item->Price, 2); ?></span></p>
 
                                             <!-- Delete Button -->
                                             <form method="POST" action="/velvetandvine/cart/deleteItem" onsubmit="return confirm('Are you sure you want to remove this item?');">
