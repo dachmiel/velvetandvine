@@ -31,7 +31,7 @@
 
                                     <!-- Delete Button -->
                                     <form action="/velvetandvine/cart/deleteItem" method="POST" onsubmit="return confirm('Are you sure you want to remove this item?');">
-                                        <input type="hidden" name="productId" value="<?= htmlspecialchars($item->ProductID); ?>">
+                                        <input type="hidden" name="productId" value="<?= htmlspecialchars($item->$ProductID); ?>">
                                         <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
                                     </form>
                                 </div>
