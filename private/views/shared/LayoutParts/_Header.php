@@ -83,7 +83,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="auth-link" href="/velvetandvine/account/cart">Cart
+              <a class="auth-link" href="/velvetandvine/cart/viewcart">Cart
                 <i class="fas fa-shopping-bag me-1"></i>
               </a>
             </li>
