@@ -15,7 +15,7 @@
                         <div class="card">
                             <div class="row g-0">
                                 <!-- Images -->
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <img src="/velvetandvine/public/images/products/product_<?php echo $item->ProductID ?>.jpg"
                                         alt="<?php echo $item->ProductName; ?>" class="img-fluid" style="height: 300px; width: 300px; object-fit: cover;">
                                 </div>
