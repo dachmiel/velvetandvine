@@ -23,10 +23,11 @@
       <!-- Left: Search Bar -->
       <div class="search-bar d-flex align-items-center">
        <form class="search-form" onsubmit="return handleSearch(event)">
+         <i class="fas fa-search search-icon"></i>
          <input type="search"
                 id="searchInput"
                 class="form-control"
-                placeholder="Search">
+                placeholder="     Search">
        </form>
      </div>
 
@@ -122,6 +123,22 @@
     opacity: 0.8;
     color: white; 
  }
+  .search-form {
+    position: relative;
+ }
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #333;
+    z-index: 10;
+  }
+ 
+  .search-form .form-control {
+    padding-left: 35px; 
+  }
+ 
   .header-custom {
     background-color: #faf7f0;
     padding: 40px 0;
