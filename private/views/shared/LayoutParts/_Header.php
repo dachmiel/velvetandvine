@@ -46,7 +46,7 @@
 
         if (isset($_SESSION["userid"]) && $_SESSION["user_type"] == "Admin") {
         ?>
-          <ul class="navbar-nav d-flex flex-row gap-2">
+          <ul class="navbar-nav d-flex flex-row align-items-center gap-2">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-black" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Admin
@@ -69,7 +69,7 @@
         <?php
         } else if (isset($_SESSION["userid"]) && $_SESSION["user_type"] == "Customer") {
         ?>
-          <ul class="navbar-nav d-flex flex-row gap-2">
+          <ul class="navbar-nav d-flex flex-row align-items-center gap-2">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-black" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Settings
