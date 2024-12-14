@@ -16,13 +16,18 @@
                 <h1><?php echo $model->name; ?></h1>
                 <p><?php echo $model->description; ?></p>
                 <p><strong>Price: <?php echo $model->price; ?></strong></p>
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <a class="btn btn-outline-dark ">S</a>
-                        <a class="btn btn-outline-dark ">M</a>
-                        <a class="btn btn-outline-dark ">L</a>
-                        <a class="btn btn-outline-dark ">XL</a>
-                    </div>
+                <form method="post", action="addToCart">
+        <input type="hidden" name="productID" value="<?php echo $model->productID; ?>">
+        <input type="hidden" name="name" value="<?php echo $model->name; ?>">
+        <input type="hidden" name="price" value="<?php echo $model->price; ?>">
+        <input type="hidden" name="description" value="<?php echo $model->description; ?>">
+        <label for="size">Size:</label>
+        <select name="size">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+  </select>
                     <div class="mb-3">
                         <label for="quantity" class="form-label"><strong>Quantity:</strong></label>
                         <div class="d-flex">
@@ -37,18 +42,27 @@
                                 style="width: 60px;">
                             <button class="btn btn-outline-dark" onclick="updateQuantity(1)">+</button>
                         </div>
+                        
                     </div>
                     <script>
-                        function updateQuantity(amount) {
-                            const quantityInput = document.getElementById('quantity');
-                            let currentQuantity = parseInt(quantityInput.value);
-                            if (isNaN(currentQuantity)) currentQuantity = 1;
-                            const newQuantity = Math.max(1, currentQuantity + amount);
-                            quantityInput.value = newQuantity;
-                        }
+                     document.querySelectorAll('.btn-outline-dark').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                        document.getElementById('selectedSize').value = btn.innerText.trim();
+                        });
+                        });
                     </script>
-                    <a href="/buy.php?pid=<?php echo urlencode($model->productID); ?>" class="btn btn-outline-dark ">Add to Cart</a>
+                        <button type="submit" class="btn submit-btn">Add to Cart</button>
                 </div>
             </div>
         </div>
 </main>
+<script>
+    function updateQuantity(amount) {
+        event.preventDefault();
+        const quantityInput = document.getElementById('quantity');
+        let currentQuantity = parseInt(quantityInput.value);
+        if (isNaN(currentQuantity)) currentQuantity = 1;
+        const newQuantity = Math.max(1, currentQuantity + amount);
+        quantityInput.value = newQuantity;
+    }
+</script>

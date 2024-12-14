@@ -74,3 +74,11 @@ class RegisterViewModel
         return !$this->error; // returns true if no errors
     }
 }
+
+class CartViewModel{
+
+    public $userId;
+    public $createdDate;
+    public $totalAmount = 0.0; 
+
+}

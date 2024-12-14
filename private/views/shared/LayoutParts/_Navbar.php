@@ -26,6 +26,9 @@
         <li class="nav-item">
           <a class="nav-link" href="/velvetandvine/catalog/sale">Sale</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/velvetandvine/catalog/cart">Cart</a>
+        </li>
       </ul>
 
     </div>

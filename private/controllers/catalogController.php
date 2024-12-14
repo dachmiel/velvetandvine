@@ -286,8 +286,181 @@ class CatalogController extends BaseController
         } else {
             echo "No products found in this category.";
         }
+        var_dump($JacketsViewModel);
+
         $this->view('jackets', ['model' => $JacketsViewModel]);
     }
+
+public function Cart(){
+    $dbContext = getDatabaseConnection();
+    $CartsViewModel = new CartViewModel;
+    //sql query for the products
+    $query = "SELECT * FROM shopping_cart_items WHERE cartId = :cartId";
+    $cartID = $_SESSION['cartId'];
+    
+    //echo 'Found Cart ID: ' . $cartID;
+    $statement = $dbContext->prepare($query);
+    $statement->bindParam(':cartId', $_SESSION['cartId'], PDO::PARAM_INT);
+    $statement->execute();
+
+    
+    //fetch them all
+    $carts = $statement->fetchAll(PDO::FETCH_ASSOC);
+    // Check if any products were returned
+    if ($carts) {
+        foreach ($carts as $cart) {
+            // Output or process each product here
+            $CartViewModel = new CartViewModel();  // New instance for each cart
+            $CartViewModel->cartItemID = isset($cart['CartItemID']) ? $cart['CartItemID'] : null;
+            $CartViewModel->cartID = isset($cart['cartId']) ? $cart['cartId'] : null;
+            $CartViewModel->productID = isset($cart['ProductID']) ? $cart['ProductID'] : null;
+            $CartViewModel->quantity = isset($cart['Quantity']) ? $cart['Quantity'] : 0;
+            $CartViewModel->subtotal = isset($cart['Subtotal']) ? $cart['Subtotal'] : 0.00;
+            $CartViewModel->size = isset($cart['size']) ? $cart['size'] : 'N/A';
+            
+            // Add the CartViewModel instance to the CartsViewModel
+            $CartsViewModel->carts[] = $CartViewModel;
+        }
+    }
+    $this->view('cart', ['model' => $CartsViewModel]);
+}
+ 
+
+ public function addToCart($id = null)
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $dbContext = getDatabaseConnection();
+        $CartViewModel = new CartViewModel();
+        $productID = $_POST['productID']; 
+        $size = $_POST['size'];   
+        $quantity = $_POST['quantity']; 
+        $subtotal = $_POST['price'];
+        if (isset($_SESSION['userid'])) {
+            $userId = $_SESSION['userid'];
+            echo "User ID: " . $userId; // Debugging user ID
+
+            // Query to get the cart ID associated with the user
+            $statement = $dbContext->prepare("SELECT cartId FROM shopping_carts WHERE userid = :userid LIMIT 1");
+            $statement->bindParam(':userid', $userId, PDO::PARAM_INT);
+            $statement->execute();
+
+            // Fetch the result to get the cartId
+            $cart = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if ($cart) {
+                $cartID = $cart['cartId']; // Retrieve cartId
+                echo 'Found Cart ID: ' . $cartID;
+            }   else {
+                // If no cart exists, create a new cart for the user
+                $insertCartQuery = "INSERT INTO shopping_carts (userid) VALUES (:userid)";
+                $insertCartStatement = $dbContext->prepare($insertCartQuery);
+                $insertCartStatement->bindParam(':userid', $userId, PDO::PARAM_INT);
+                $insertCartStatement->execute();
+
+                // Get the newly created cart ID
+                $cartID = $dbContext->lastInsertId(); 
+                echo 'Created New Cart ID: ' . $cartID;
+            }
+        } else {
+            // If user is not logged in, handle appropriately (optional)
+            echo "User not logged in.";
+            return;
+        }
+                
+        //$cartID = $_POST['quantity'];
+       // $cartItemID = $_POST['quantity'];
+        
+
+        
+        // Insert query
+        $query = "INSERT INTO shopping_cart_items (cartItemID,cartID,productID, quantity, subtotal) 
+                  VALUES (:cartItemID,:cartID,:productID, :quantity, :subtotal)";
+        $statement = $dbContext->prepare($query);
+
+
+        // Bind parameters
+        $statement->bindParam(':cartItemID', $cartItemID, PDO::PARAM_INT);
+        $statement->bindParam(':cartID', $cartID, PDO::PARAM_INT);
+        $statement->bindParam(':productID', $productID, PDO::PARAM_INT);
+        $statement->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+        $statement->bindParam(':subtotal', $subtotal, PDO::PARAM_INT);
+
+        // Execute
+        if ($statement->execute()) {
+            echo "Product added to cart successfully!";
+        } else {
+            echo "Failed to add product to cart.";
+        }
+
+        header("Location: /velvetandvine/catalog/cart");
+
+    }
+}
+public function removeFromCart($id = null){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $dbContext = getDatabaseConnection();
+        $CartViewModel = new CartViewModel();
+
+        // Get values from POST data
+        $productID = $_POST['productID'];
+        $cartItemID = $_POST['cartItemID'];  // Make sure cartItemID is passed
+        $quantity = $_POST['quantity'];
+        $subtotal = $_POST['price'];
+
+        // Check if the user is logged in
+        if (isset($_SESSION['userid'])) {
+            $userId = $_SESSION['userid'];
+            echo "User ID: " . $userId; // Debugging user ID
+
+            // Query to get the cart ID associated with the user
+            $statement = $dbContext->prepare("SELECT cartId FROM shopping_carts WHERE userid = :userid LIMIT 1");
+            $statement->bindParam(':userid', $userId, PDO::PARAM_INT);
+            $statement->execute();
+
+            // Fetch the result to get the cartId
+            $cart = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if ($cart) {
+                $cartID = $cart['cartId']; // Retrieve cartId
+                echo 'Found Cart ID: ' . $cartID;
+            } else {
+                // If no cart exists, create a new cart for the user
+                $insertCartQuery = "INSERT INTO shopping_carts (userid) VALUES (:userid)";
+                $insertCartStatement = $dbContext->prepare($insertCartQuery);
+                $insertCartStatement->bindParam(':userid', $userId, PDO::PARAM_INT);
+                $insertCartStatement->execute();
+
+                // Get the newly created cart ID
+                $cartID = $dbContext->lastInsertId();
+                echo 'Created New Cart ID: ' . $cartID;
+            }
+        } else {
+            // If user is not logged in, handle appropriately (optional)
+            echo "User not logged in.";
+            return;
+        }
+
+        // DELETE query to remove the item from shopping_cart_items
+        $query = "DELETE FROM shopping_cart_items WHERE cartItemID = :cartItemID AND cartID = :cartID AND productID = :productID";
+        $statement = $dbContext->prepare($query);
+
+        // Bind parameters
+        $statement->bindParam(':cartItemID', $cartItemID, PDO::PARAM_INT);
+        $statement->bindParam(':cartID', $cartID, PDO::PARAM_INT);
+        $statement->bindParam(':productID', $productID, PDO::PARAM_INT);
+
+        // Execute the query to remove the product from the cart
+        if ($statement->execute()) {
+            echo "Product removed from cart successfully!";
+        } else {
+            echo "Failed to remove product from cart.";
+        }
+
+        // Redirect to the cart page
+        header("Location: /velvetandvine/catalog/cart");
+        exit; // Make sure to stop further script execution
+    }
+}
     public function Sale($id = null)
     {
         $this->view('sale');

@@ -70,15 +70,21 @@ class AccountController extends BaseController
                     $statement->bindParam(':created_date', $created_date, PDO::PARAM_STR);
                     $statement->bindParam(':user_type', $user_type, PDO::PARAM_STR);
 
+                    //$statement->execute();
+
+                    
                     if ($statement->execute()) {
                         // Redirect to login after successful registration
+                        $userId = $dbContext->lastInsertId();
+                        $_SESSION['userId'] = $userId;
+                        $_SESSION['cartId'] = $cartID;
+                        $this->createCart();
                         header("Location: /velvetandvine/account/login");
-                        exit;
-                    } else {
-                        echo "Error registering user!";
-                    }
+                }else{
+                    echo "Error registering user!";
                 }
-            }
+                }
+            } 
         }
         // unsuccessful register
         // return view, passing in the viewmodel with the form data
@@ -88,6 +94,7 @@ class AccountController extends BaseController
 
     public function Login($id = null)
     {
+        
         // if user is logged in, redirect to default page
         if ($this->isAuthenticated()) {
             header("Location: /velvetandvine");
@@ -130,13 +137,88 @@ class AccountController extends BaseController
                 }
 
                 $LoginViewModel->error = "Email or password invalid";
-            }
+            } 
         }
         // unsuccessful login
         // return view, passing in the viewmodel with the form data
         $this->view('login', ['model' => $LoginViewModel]);
     }
 
+    public function createCart(){
+        //include "models/db.php";
+        $dbContext = getDatabaseConnection();
+        $CartViewModel = new CartViewModel();
+        if (isset($_POST['email'])) {
+            $email = $_POST['email'];
+            $dbContext = getDatabaseConnection();
+
+            // Fetch the userID using the email
+            $statement = $dbContext->prepare("SELECT userid FROM application_users WHERE email = :email");
+            $statement->bindParam(':email', $email, PDO::PARAM_STR);
+            $statement->execute();
+        
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+        
+            // Ensure the user exists
+            if (!$user) {
+                echo "User not found!";
+                return;
+            }
+        
+            // Get the userID
+            $userId = $user['userid'];
+            $statement = $dbContext->prepare("SELECT cartId FROM shopping_carts WHERE userid = :userid");
+            $statement->bindParam(':userid', $userId, PDO::PARAM_STR);
+            $statement->execute();
+                        //$userId = $_SESSION['userid'];
+                        $createdDate = date('Y-m-d H:i:s');
+                        $totalAmount = 0.0;
+                        $statement = $dbContext->prepare("INSERT INTO shopping_carts (userId, createdDate, totalAmount) VALUES (:userId, :createdDate, :totalAmount)");
+                        $statement->bindParam(':userId', $userId, PDO::PARAM_STR);
+                        $statement->bindParam(':createdDate', $createdDate, PDO::PARAM_STR);
+                        $statement->bindParam(':totalAmount', $totalAmount, PDO::PARAM_STR);
+
+                    if($statement->execute()){    
+                        $cartID = $dbContext->lastInsertId();
+                        $_SESSION['cartId'] = $cartID; 
+                        header("Location: /velvetandvine/catalog/cart");
+                        exit;
+                    } else {
+                        echo "Error registering user!";
+                    }
+                }
+            }
+
+    public function showCart(){
+        //include "models/db.php";
+        $dbContext = getDatabaseConnection();
+        $CartViewModel = new CartViewModel();
+        if (isset($_POST['email'])) {
+            $email = $_POST['email'];
+            $dbContext = getDatabaseConnection();
+
+            // Fetch the userID using the email
+            $statement = $dbContext->prepare("SELECT userid FROM application_users WHERE email = :email");
+            $statement->bindParam(':email', $email, PDO::PARAM_STR);
+            $statement->execute();
+        
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+        
+            // Ensure the user exists
+            if (!$user) {
+                echo "User not found!";
+                return;
+            }
+        
+            // Get the userID
+            $userId = $user['userid'];
+            $statement = $dbContext->prepare("SELECT cartId FROM shopping_carts WHERE userid = :userid");
+            $statement->bindParam(':userid', $userId, PDO::PARAM_STR);
+            $statement->execute();
+            //header("Location: /velvetandvine/catalog/cart?userid=" . urlencode($userId));
+            header("Location: /velvetandvine/catalog/cart"); 
+    }
+    }
     //method to showcase user profile 
     public function Profile()
 {
@@ -145,7 +227,6 @@ class AccountController extends BaseController
         header("Location: /velvetandvine/account/login");
         exit;
     }
-
     // Fetch user details from the database
     $userId = $_SESSION['userid'];
     $dbContext = getDatabaseConnection();
@@ -168,13 +249,9 @@ class AccountController extends BaseController
 
     public function LogOut()
     {
-
         session_start();
-
         $_SESSION = array();
-
         session_destroy();
-
         header("location: /velvetandvine");
     }
 }
