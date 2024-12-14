@@ -16,8 +16,10 @@
                             <div class="row g-0 align-items-center">
                                 <!-- Images -->
                                 <div class="col-md-2">
-                                    <img src="/velvetandvine/public/images/products/product_<?php echo $item->ProductID ?>.jpg"
-                                        alt="<?php echo $item->ProductName; ?>" class="img-fluid" style="height: 200px; width: 200px; object-fit: cover;">
+                                    <a href="/velvetandvine/catalog/product?pid=<?php echo urlencode($item->ProductID); ?>" style="text-decoration: none; color: inherit;">
+                                        <img src="/velvetandvine/public/images/products/product_<?php echo $item->ProductID ?>.jpg"
+                                            alt="<?php echo $item->ProductName; ?>" class="img-fluid" style="height: 200px; width: 200px; object-fit: cover;">
+                                    </a>
                                 </div>
                                 <div class="col-md-9">
                                     <div class="card-body py-2">
@@ -25,6 +27,8 @@
                                             <?= htmlspecialchars($item->ProductName); ?>
                                         </h5>
                                         <p class="card-text" style="margin-bottom: 0.5rem;"><strong>Price:</strong> $<?= number_format($item->Price, 2); ?></p>
+                                        <!-- Subtotal -->
+                                        <p class="card-text"><strong>Subtotal:</strong> $<span id="subtotal-<?= $item->ProductID ?>"><?= number_format($item->Quantity * $item->Price, 2); ?></span></p>
                                         <p class="card-text" style="margin-bottom: 0.5rem;"><strong>Quantity:</strong> </p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <!-- Edit Quantity Button -->
@@ -43,9 +47,6 @@
                                                     <button type="button" class="btn btn-outline-dark" onclick="updateQuantity(<?= $item->ProductID ?>, 1)">+</button>
                                                 </div>
                                             </form>
-
-                                            <!-- Subtotal -->
-                                            <p class="card-text"><strong>Subtotal:</strong> $<span id="subtotal-<?= $item->ProductID ?>"><?= number_format($item->Quantity * $item->Price, 2); ?></span></p>
 
                                             <!-- Delete Button -->
                                             <form method="POST" action="/velvetandvine/cart/deleteItem" onsubmit="return confirm('Are you sure you want to remove this item?');">
