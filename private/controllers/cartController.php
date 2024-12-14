@@ -49,6 +49,7 @@ class CartController extends BaseController
             $cartItemViewModels[] = new CartItemViewModel(
                 $item['CartItemID'],
                 $item['CartID'],
+                $item['ProductID'],
                 $item['Quantity'],
                 getProductPriceById($item['ProductID']),
                 getProductNameById($item['ProductID'])

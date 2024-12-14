@@ -20,14 +20,16 @@ class CartItemViewModel
 {
     public $CartItemID;
     public $CartID;
+    public $ProductID;
     public $Quantity;
     public $Subtotal;
     public $ProductName;
 
-    public function __construct($CartItemID, $CartID, $Quantity, $Subtotal, $ProductName)
+    public function __construct($CartItemID, $CartID, $ProductID, $Quantity, $Subtotal, $ProductName)
     {
         $this->CartItemID = $CartItemID;
         $this->CartID = $CartID;
+        $this->ProductID = $ProductID;
         $this->Quantity = $Quantity;
         $this->Subtotal = $Subtotal;
         $this->ProductName = $ProductName;

@@ -13,8 +13,8 @@
                 <?php foreach ($cartItems as $item): ?>
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
-                            <!-- No clue how to do images -->
-                            <img src="/public/images/products/product_<?php echo $item->productID ?>.jpg"
+                            <!-- Images -->
+                            <img src="/velvetandvine/public/images/products/product_<?php echo $item->ProductID ?>.jpg"
                                 alt="<?php echo $item->ProductName; ?>" style="width: 100%; height: 100%;">
                             <div class="card-body">
                                 <h5 class="card-title"><?= htmlspecialchars($item->ProductName); ?></h5>
