@@ -11,29 +11,37 @@
             <!-- Cart Items -->
             <div class="row">
                 <?php foreach ($cartItems as $item): ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-200">
-                            <!-- Images -->
-                            <img src="/velvetandvine/public/images/products/product_<?php echo $item->ProductID ?>.jpg"
-                                alt="<?php echo $item->ProductName; ?>" style="width: 325px; height: 300px; object-fit: cover; margin-bottom: 10px;">
-                            <div class="card-body">
-                                <h5 class="card-title"><?= htmlspecialchars($item->ProductName); ?></h5>
-                                <p class="card-text"><strong>Price:</strong> $<?= number_format($item->Subtotal, 2); ?></p>
-                                <p class="card-text"><strong>Quantity:</strong> <?= htmlspecialchars($item->Quantity); ?></p>
-                                <div class="d-flex justify-content-between">
-                                    <!-- Edit Quantity Button -->
-                                    <form method="POST" action="/velvetandvine/cart/updateQuantity">
-                                        <input type="hidden" name="productId" value="<?= htmlspecialchars($item->ProductID); ?>">
-                                        <input type="number" name="quantity" value="<?= htmlspecialchars($item->Quantity); ?>"
-                                            min="1" class="form-control mb-2" style="width: 70px;">
-                                        <button type="submit" class="btn btn-outline-primary btn-sm">Update Quantity</button>
-                                    </form>
+                    <div class="col-12 mb-4">
+                        <div class="card">
+                            <div class="row g-0">
+                                <!-- Images -->
+                                <div class="col-md-4">
+                                    <img src="/velvetandvine/public/images/products/product_<?php echo $item->ProductID ?>.jpg"
+                                        alt="<?php echo $item->ProductName; ?>" class="img-fluid" style="height: 300px; width: 300px; object-fit: cover;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <?= htmlspecialchars($item->ProductName); ?>
+                                        </h5>
+                                        <p class="card-text"><strong>Price:</strong> $<?= number_format($item->Subtotal, 2); ?></p>
+                                        <p class="card-text"><strong>Quantity:</strong> <?= htmlspecialchars($item->Quantity); ?></p>
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <!-- Edit Quantity Button -->
+                                            <form method="POST" action="/velvetandvine/cart/updateQuantity">
+                                                <input type="hidden" name="productId" value="<?= htmlspecialchars($item->ProductID); ?>">
+                                                <input type="number" name="quantity" value="<?= htmlspecialchars($item->Quantity); ?>"
+                                                    min="1" class="form-control mb-2" style="width: 80px;">
+                                                <button type="submit" class="btn btn-outline-primary btn-sm">Update Quantity</button>
+                                            </form>
 
-                                    <!-- Delete Button -->
-                                    <form method="POST" action="/velvetandvine/cart/deleteItem" onsubmit="return confirm('Are you sure you want to remove this item?');">
-                                        <input type="hidden" name="productId" value="<?= htmlspecialchars($item->$ProductID); ?>">
-                                        <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
-                                    </form>
+                                            <!-- Delete Button -->
+                                            <form method="POST" action="/velvetandvine/cart/deleteItem" onsubmit="return confirm('Are you sure you want to remove this item?');">
+                                                <input type="hidden" name="productId" value="<?= htmlspecialchars($item->ProductID); ?>">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
