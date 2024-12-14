@@ -47,7 +47,7 @@
                             quantityInput.value = newQuantity;
                         }
                     </script>
-                    <a href="/buy.php?pid=<?php echo urlencode($model->productID); ?>" class="btn btn-outline-dark ">Add to Cart</a>
+                    <a href="/velvetandvine/cart/addtocart?pid=<?php echo urlencode($model->productID); ?>" class="btn btn-outline-dark ">Add to Cart</a>
                 </div>
             </div>
         </div>

@@ -63,6 +63,44 @@ class CartController extends BaseController
         //var_dump($cartItemViewModels);
         $this->view('viewCart', ['cart' => $cart, 'cartItems' => $cartItemViewModels]);
     }
+
+    public function addToCart()
+    {
+        if (!$this->isAuthenticated()) {
+            header("Location: /velvetandvine/account/login");
+            exit;
+        }
+
+        $userId = $_SESSION['userid'];
+
+        $productId = $_POST['productId'];
+        $quantity = intval($_POST['quantity']);
+
+        if ($quantity <= 0) {
+            header("Location: /velvetandvine/cart/viewCart?error=invalid_quantity");
+            exit;
+        }
+
+        $cartModel = new CartModel();
+
+        // Retrieve the user's cart
+        $cart = $cartModel->getCartByUserId($userId);
+
+        // If no cart exists, create a new one
+        if (!$cart) {
+            $cartId = $cartModel->createEmptyCart($userId);
+        } else {
+            $cartId = $cart['CartID'];
+        }
+
+        addItemToCart($cartId, $productId, $quantity);
+
+        $cartItems = $cartModel->getCartItems($cartId);
+        updateCartTotalAmount($cart, $cartItems);
+
+        header("Location: /velvetandvine/cart/viewCart");
+        exit;
+    }
 }
 
 function getProductNameById($productId)
@@ -120,4 +158,37 @@ function updateCartTotalAmount($cart, $cartItems)
     $stmt->execute();
 
     return;
+}
+
+function addItemToCart($cartId, $productId, $quantity)
+{
+    $dbContext = getDatabaseConnection();
+
+    $query = "SELECT * FROM cart_items WHERE CartID = :cartId AND ProductID = :productId";
+    $stmt = $dbContext->prepare($query);
+    $stmt->bindParam(':cartId', $cartId, PDO::PARAM_INT);
+    $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $existingItem = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($existingItem) {
+        $newQuantity = $existingItem['Quantity'] + $quantity;
+        $query = "UPDATE cart_items SET Quantity = :quantity, Subtotal = :subtotal WHERE CartItemID = :cartItemId";
+        $subtotal = getProductPriceById($productId) * $newQuantity;
+        $stmt = $dbContext->prepare($query);
+        $stmt->bindParam(':quantity', $newQuantity, PDO::PARAM_INT);
+        $stmt->bindParam(':subtotal', $subtotal, PDO::PARAM_STR);
+        $stmt->bindParam(':cartItemId', $existingItem['CartItemID'], PDO::PARAM_INT);
+        $stmt->execute();
+    } else {
+        $query = "INSERT INTO cart_items (CartID, ProductID, Quantity, Subtotal) VALUES (:cartId, :productId, :quantity, :subtotal)";
+        $stmt = $dbContext->prepare($query);
+        $subtotal = getProductPriceById($productId) * $quantity;
+        $stmt->bindParam(':cartId', $cartId, PDO::PARAM_INT);
+        $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
+        $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+        $stmt->bindParam(':subtotal', $subtotal, PDO::PARAM_STR);
+        $stmt->execute();
+    }
 }
